@@ -1,0 +1,35 @@
+{
+  "resources/img/MARCA-EVOGARD.png": {
+    "file": "assets/MARCA-EVOGARD-0dut4_eU.png",
+    "src": "resources/img/MARCA-EVOGARD.png"
+  },
+  "resources/js/app.ts": {
+    "file": "assets/app-BtVlNsno.js",
+    "name": "app",
+    "src": "resources/js/app.ts",
+    "isEntry": true,
+    "dynamicImports": [
+      "resources/js/pages/Home.vue"
+    ],
+    "css": [
+      "assets/app-DbevkOlY.css"
+    ]
+  },
+  "resources/js/pages/Home.vue": {
+    "file": "assets/Home-B40OB3bH.js",
+    "name": "Home",
+    "src": "resources/js/pages/Home.vue",
+    "isDynamicEntry": true,
+    "imports": [
+      "resources/js/app.ts"
+    ],
+    "assets": [
+      "assets/EXEMPLE_VISTORIA-BDah85lp.mp4",
+      "assets/MARCA-EVOGARD-0dut4_eU.png"
+    ]
+  },
+  "resources/video/EXEMPLE_VISTORIA.mp4": {
+    "file": "assets/EXEMPLE_VISTORIA-BDah85lp.mp4",
+    "src": "resources/video/EXEMPLE_VISTORIA.mp4"
+  }
+}
