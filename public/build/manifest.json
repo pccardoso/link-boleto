@@ -4,7 +4,7 @@
     "src": "resources/img/MARCA-EVOGARD.png"
   },
   "resources/js/app.ts": {
-    "file": "assets/app-BtVlNsno.js",
+    "file": "assets/app-DscidOso.js",
     "name": "app",
     "src": "resources/js/app.ts",
     "isEntry": true,
@@ -12,11 +12,11 @@
       "resources/js/pages/Home.vue"
     ],
     "css": [
-      "assets/app-DbevkOlY.css"
+      "assets/app-XfyGgLmW.css"
     ]
   },
   "resources/js/pages/Home.vue": {
-    "file": "assets/Home-B40OB3bH.js",
+    "file": "assets/Home-C9WWsTUC.js",
     "name": "Home",
     "src": "resources/js/pages/Home.vue",
     "isDynamicEntry": true,
