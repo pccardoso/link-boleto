@@ -253,7 +253,7 @@ export default {
       const boletoMaisAntigo = this.boletosCurrent.reduce((maisAntigo, atual) => {
         if (!maisAntigo) return atual;
 
-        return new Date(atual.data_vencimento) < new Date(maisAntigo.data_vencimento)
+        return new Date(atual.data_vencimento_original) < new Date(maisAntigo.data_vencimento_original)
           ? atual
           : maisAntigo;
       }, null);

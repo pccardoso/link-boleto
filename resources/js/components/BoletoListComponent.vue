@@ -42,7 +42,7 @@
             </a>
 
             <!-- Copiar Pix -->
-            <button v-if="boleto?.pix?.copia_cola" @click="copyPix(boleto?.pix?.copia_cola, index)"
+            <button v-if="boleto?.pix?.copia_cola && !isExpired(boleto.data_vencimento_original)" @click="copyPix(boleto?.pix?.copia_cola, index)"
               class="bg-emerald-600 hover:bg-emerald-700 text-white text-sm px-4 py-2 rounded-lg transition duration-200">
               <i class="fa-brands fa-pix"></i> {{ copiedIndex === index ? 'Copiado!' : 'Copiar Pix' }}
             </button>
@@ -89,7 +89,7 @@
 
             <!-- Até 5 dias -->
             <button v-else-if="daysLate(boleto.data_vencimento_original) <= 5" @click="atualizarBoleto(boleto)"
-              class="w-full md:w-auto bg-blue-600 hover:bg-blue-700 text-white text-sm px-4 py-3 md:py-2 rounded-lg transition-all shadow-md">
+              class="w-full md:w-auto bg-(--evogard-orange) hover:bg-(--evogard-blue) text-white text-sm px-4 py-3 md:py-2 rounded-lg transition-all shadow-md">
               Atualizar boleto
             </button>
 
@@ -133,25 +133,32 @@ export default {
     },
 
     formatDate(date) {
-      return new Date(date).toLocaleDateString('pt-BR')
+      return new Date(date).toLocaleDateString('pt-BR', {
+        timeZone: 'UTC'
+      })
     },
 
     isExpired(date) {
-      return new Date(date) < new Date()
+      const vencimento = new Date(date)
+      vencimento.setHours(23, 59, 59, 999)
+
+      return vencimento < new Date()
     },
 
     daysLate(date) {
       const today = new Date()
-      const targetDate = new Date(date)
 
-      // Zera horas para evitar erro por diferença de horário
+      const onlyDate = date.split('T')[0] // 2026-03-10
+      const [year, month, day] = onlyDate.split('-')
+
+      const targetDate = new Date(year, month - 1, day)
+
       today.setHours(0, 0, 0, 0)
-      targetDate.setHours(0, 0, 0, 0)
 
       const diffInMs = today - targetDate
       const diffInDays = diffInMs / (1000 * 60 * 60 * 24)
 
-      return diffInDays > 0 ? diffInDays : 0
+      return diffInDays > 0 ? Math.floor(diffInDays) : 0
     },
 
     async copyPix(value, index) {
