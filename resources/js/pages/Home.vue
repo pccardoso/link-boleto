@@ -162,7 +162,7 @@
 
             <div class="flex items-center gap-2 text-lg font-semibold">
               <i class="fas fa-phone"></i>
-              +55 800 000 4312
+              0800 000 1992
             </div>
 
           </div>
