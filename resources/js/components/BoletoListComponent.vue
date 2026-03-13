@@ -36,7 +36,7 @@
           <!-- Botões -->
           <div class="flex flex-col md:flex-row gap-2 mt-2 md:mt-0">
             <!-- Ver boleto -->
-            <a :href="boleto.link_boleto" target="_blank"
+            <a v-if="daysLate(boleto.data_vencimento_original) <= 5" :href="boleto.link_boleto" target="_blank"
               class="bg-(--evogard-blue) hover:bg-(--evogard-orange) text-white text-sm px-4 py-2 rounded-lg transition duration-200">
               <i class="fa-solid fa-barcode"></i> Ver boleto
             </a>

@@ -50,7 +50,7 @@
                 'Accept' => 'application/json',
             ])->post('https://api.hinova.com.br/api/sga/v2/listar/boleto/periodo/', [
                 'cpf_associado' => $cpfCnpjClient,
-                "data_vencimento_original_inicial" => $hoje->copy()->subDays(30)->format('d/m/Y'),
+                "data_vencimento_original_inicial" => $hoje->copy()->subDays(90)->format('d/m/Y'),
                 "data_vencimento_original_final"   => $hoje->copy()->addDays(30)->format('d/m/Y'),
             ]);
 
@@ -71,7 +71,7 @@
                 'Accept' => 'application/json',
             ])->post('https://api.hinova.com.br/api/sga/v2/listar/boleto-associado-veiculo', [
                 'placa' => $plateVehicle,
-                "data_vencimento_original_inicial" => $hoje->copy()->subDays(30)->format('d/m/Y'),
+                "data_vencimento_original_inicial" => $hoje->copy()->subDays(90)->format('d/m/Y'),
                 "data_vencimento_original_final"   => $hoje->copy()->addDays(30)->format('d/m/Y'),
             ]);
 

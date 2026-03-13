@@ -36,7 +36,7 @@
     "src": "resources/img/RASTREADOR.png"
   },
   "resources/js/app.ts": {
-    "file": "assets/app-C-TkcODr.js",
+    "file": "assets/app-1_Ad4nLB.js",
     "name": "app",
     "src": "resources/js/app.ts",
     "isEntry": true,
@@ -51,7 +51,7 @@
     ]
   },
   "resources/js/pages/Home.vue": {
-    "file": "assets/Home-BBypSdJn.js",
+    "file": "assets/Home-Jix7WdEQ.js",
     "name": "Home",
     "src": "resources/js/pages/Home.vue",
     "isDynamicEntry": true,
