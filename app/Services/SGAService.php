@@ -30,6 +30,14 @@
                 return $listPlate;
 
             }
+
+            if($response->status() === 406){
+
+                return [];
+
+            }
+
+            return $response->json();
             
         }
 
@@ -72,6 +80,14 @@
                 return $response->json();
 
             }
+
+            if($response->status() === 406){
+
+                return [];
+
+            }
+
+            return $response->json();
 
         }
 

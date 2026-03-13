@@ -17,6 +17,14 @@ class SGAController extends Controller
 
         $plate = $this->serviceSGA->searchPlateMember($cpfOrCnpj);
 
+        if(!$plate){
+            return response()->json([
+                "message" => "Nenhuma placa encontrada",
+                "status" => 404,
+                "data" => []
+            ], 404);
+        }
+
         return response()->json([
             "message" => "Placas encontradas",
             "status" => 200,
@@ -40,6 +48,14 @@ class SGAController extends Controller
     public function consultBoletPlate($plate){
 
         $bolet = $this->serviceSGA->listBoletoOfPlate($plate);
+
+        if(!$bolet){
+            return response()->json([
+                "message" => "Nenhum boleto encontrado para a placa informada!",
+                "status" => 404,
+                "data" => []
+            ], 404);
+        }
 
         return response()->json([
             "message" => "Boletos encontradas",

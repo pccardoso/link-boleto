@@ -1,4 +1,3 @@
-```vue
 <template>
   <button
     :type="type"
@@ -72,4 +71,3 @@ export default {
   },
 }
 </script>
-```

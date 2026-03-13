@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="p-4 bg-neutral-100 rounded-3xl">
 
     <!-- Search -->
     <div class="mb-4">
@@ -116,11 +116,11 @@ export default {
       this.selectedIndex = index
       this.$emit("selectedPlate", veiculo)
     },
-
     statusColor(status) {
-      if (status === "CANCELADO") return "bg-red-100 text-red-600"
-      if (status === "ATIVO") return "bg-green-100 text-green-600"
-      return "bg-yellow-100 text-yellow-600"
+
+      if(["CANCELADO", "INATIVO", "INADIMPLENTE"].includes(status)) return "bg-red-100 text-red-600";
+      if(["ATIVO", "ATIVO - TROCA DE VEíCULO"].includes(status)) return "bg-green-100 text-green-600";
+      return "bg-yellow-100 text-yellow-600";
     }
   }
 }

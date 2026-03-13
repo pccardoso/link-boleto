@@ -1,79 +1,190 @@
 <template>
-  <div class="min-h-screen bg-(--evogard-blue) flex items-center justify-center px-4">
 
-    <div class="bg-white w-full max-w-lg rounded-2xl shadow-xl p-8 my-7">
+  <div class="min-h-screen flex flex-col bg-textura">
 
-      <!-- Título -->
-      <div class="flex flex-col items-center justify-center gap-3 mb-8">
+    <!-- HERO / CONTEÚDO PRINCIPAL -->
+    <section class="flex flex-1 items-center justify-center px-8 py-16">
 
-        <!-- Imagem -->
-        <img src="../../img/MARCA-EVOGARD.png" alt="Boletos" class="h-12">
+      <div class="max-w-7xl w-full grid md:grid-cols-2 gap-10 items-center">
 
-        <!-- Texto -->
-        <div class="text-center">
-          <h1 class="text-2xl font-bold text-(--evogard-blue)">
-            Consulta de Boletos
+        <!-- TEXTO ESQUERDA -->
+        <div>
+
+          <!-- IMAGENS -->
+          <div class="flex items-center gap-4 mb-6">
+
+            <img src="../../img/EVOGARD-WHITE.png" class="h-16 object-contain">
+            <img src="../../img/COBERTURA.png" class="h-16 object-contain">
+            <img src="../../img/EVOGARD-WHITE.png" class="h-16 object-contain">
+
+          </div>
+
+          <!-- TÍTULO -->
+          <h1 class="text-5xl font-bold text-white leading-tight">
+            MANTENHA SEU VEÍCULO <br />
+            100% PROTEGIDO.
           </h1>
-          <p class="text-gray-500 text-sm mt-1">
-            Informe a placa do veículo para consultar boletos em aberto
+
+          <!-- SUBTEXTO -->
+          <p class="text-orange-500 text-[25px] font-semibold mt-6">
+            Emita agora a segunda via do seu boleto de forma rápida e segura.
           </p>
+
+        </div>
+
+        <!-- BOX DIREITA (SEU TEMPLATE ATUAL) -->
+        <div class="rounded-3xl">
+
+          <div class="bg-white w-full max-w-lg rounded-2xl shadow-xl p-8 my-4 mx-auto">
+
+            <!-- Título -->
+            <div class="flex flex-col items-center justify-center gap-3 mb-8">
+
+              <img src="../../img/LOGO-EVOGARD.png" alt="Boletos" class="h-12">
+
+              <div class="text-center">
+                <h1 class="text-2xl font-bold text-(--evogard-blue)">
+                  Consulta de Boletos
+                </h1>
+
+                <p class="text-gray-500 text-sm mt-1">
+                  Informe a placa do veículo para consultar boletos em aberto
+                </p>
+              </div>
+
+            </div>
+
+            <HorizontalSelect v-model="tipoSelecionado" :options="listSelect" class="mb-4" />
+
+            <div class="mb-6 space-y-2">
+              <label class="block text-sm font-medium text-gray-700 mb-2">
+                {{ labelTypeSearch }}
+              </label>
+
+              <input v-model="placa" type="text" :placeholder="plaholderTypeSearch"
+                class="w-full px-4 py-3 border text-gray-600 border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition" />
+            </div>
+
+            <VehicleListComponent :veiculos="veiculos" @selectedPlate="actionSelectedPlate" class="mb-4"
+              v-if="tipoSelecionado === 'cpf'" />
+
+            <BoletoListComponent v-if="viewBoletos" :boletos="pegarBoletoMaisAntigo" class="mb-4"
+              @actionUpdateMaturity="updateBolet" @actionLinkSurvey="openModalLink" />
+
+            <div class="flex gap-3">
+
+              <BaseButton :loading="loadingButton" :disabled="validateInput" @click="getPlate">
+                Consultar Boletos
+              </BaseButton>
+
+              <button @click="clearForm"
+                class="flex-1 bg-gray-200 hover:bg-gray-300 text-gray-700 font-semibold py-3 rounded-xl transition duration-200">
+                Limpar
+              </button>
+
+            </div>
+
+          </div>
+
         </div>
 
       </div>
 
-      <HorizontalSelect v-model="tipoSelecionado" :options="listSelect" class="mb-4" />
+    </section>
 
-      <!-- Campo Placa -->
-      <div class="mb-6 space-y-2">
-        <label class="block text-sm font-medium text-gray-700 mb-2">
-          {{ labelTypeSearch }}
-        </label>
+    <!-- CARDS -->
+    <section class="py-16 bg-gray-100">
+      <div class="max-w-6xl mx-auto grid md:grid-cols-4 gap-8 px-6">
 
-        <input v-model="placa" type="text" :placeholder="plaholderTypeSearch"
-          class="w-full px-4 py-3 border text-gray-600 border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition" />
+        <!-- CARD -->
+        <div
+          class="bg-gradient-to-br from-orange-400 to-orange-500 text-white rounded-xl p-6 shadow-lg flex flex-col items-center text-center gap-4 transform transition duration-300 hover:scale-105 hover:shadow-2xl">
+          <div class="bg-white/20 p-4 rounded-full flex items-center justify-center">
+            <img src="../../img/COBERTURA_COMPLETA.png" class="h-16 w-16 object-contain">
+          </div>
+          <h3 class="font-bold text-lg">Cobertura completa</h3>
+          <p class="text-sm text-white/90">Proteção total para o seu veículo em qualquer situação.</p>
+        </div>
+
+        <!-- CARD -->
+        <div
+          class="bg-gradient-to-br from-orange-400 to-orange-500 text-white rounded-xl p-6 shadow-lg flex flex-col items-center text-center gap-4 transform transition duration-300 hover:scale-105 hover:shadow-2xl">
+          <div class="bg-white/20 p-4 rounded-full flex items-center justify-center">
+            <img src="../../img/ASSISTENCIA.png" class="h-16 w-16 object-contain">
+          </div>
+          <h3 class="font-bold text-lg">Assistência 24h</h3>
+          <p class="text-sm text-white/90">Atendimento rápido e confiável a qualquer hora do dia.</p>
+        </div>
+
+        <!-- CARD -->
+        <div
+          class="bg-gradient-to-br from-orange-400 to-orange-500 text-white rounded-xl p-6 shadow-lg flex flex-col items-center text-center gap-4 transform transition duration-300 hover:scale-105 hover:shadow-2xl">
+          <div class="bg-white/20 p-4 rounded-full flex items-center justify-center">
+            <img src="../../img/RASTREADOR.png" class="h-16 w-16 object-contain">
+          </div>
+          <h3 class="font-bold text-lg">Rastreador</h3>
+          <p class="text-sm text-white/90">Localize seu veículo em tempo real, de forma segura.</p>
+        </div>
+
+        <!-- CARD -->
+        <div
+          class="bg-gradient-to-br from-orange-400 to-orange-500 text-white rounded-xl p-6 shadow-lg flex flex-col items-center text-center gap-4 transform transition duration-300 hover:scale-105 hover:shadow-2xl">
+          <div class="bg-white/20 p-4 rounded-full flex items-center justify-center">
+            <img src="../../img/PROTECAO.png" class="h-16 w-16 object-contain">
+          </div>
+          <h3 class="font-bold text-lg">Proteção para diversas situações</h3>
+          <p class="text-sm text-white/90">Segurança completa para você e sua família.</p>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="bg-(--evogard-blue) text-white pt-10 pb-6">
+
+      <div class="max-w-7xl mx-auto px-6">
+
+        <div class="grid md:grid-cols-2 gap-10 items-center text-center md:text-left">
+
+          <!-- LOGO -->
+          <div class="flex flex-col items-center md:items-start gap-3">
+            <img src="../../img/EVOGARD-WHITE.png" class="h-10">
+          </div>
+
+        
+
+          <!-- CONTATO -->
+          <div class="flex flex-col items-center md:items-end gap-3">
+
+            <span class="font-semibold tracking-wider text-sm text-gray-200">
+              DÚVIDAS? FALE CONOSCO
+            </span>
+
+            <div class="flex items-center gap-2 text-lg font-semibold">
+              <i class="fas fa-phone"></i>
+              +55 800 000 4312
+            </div>
+
+            <span class="text-sm text-gray-200">
+              Atendimento de segunda a sexta
+            </span>
+
+          </div>
+
+        </div>
+
       </div>
 
-      <VehicleListComponent :veiculos="veiculos" @selectedPlate="actionSelectedPlate" class="mb-4"
-        v-if="tipoSelecionado === 'cpf'" />
-
-      <BoletoListComponent v-if="viewBoletos" :boletos="pegarBoletoMaisAntigo" class="mb-4"
-        @actionUpdateMaturity="updateBolet" @actionLinkSurvey="openModalLink" />
-
-      <!-- Botões -->
-      <div class="flex gap-3">
-
-        <BaseButton :loading="loadingButton" :disabled="validateInput" @click="getPlate">
-          Consultar Boletos
-        </BaseButton>
-
-        <button @click="clearForm"
-          class="flex-1 bg-gray-200 hover:bg-gray-300 text-gray-700 font-semibold py-3 rounded-xl transition duration-200">
-          Limpar
-        </button>
-
-      </div>
-
-    </div>
+    </footer>
 
   </div>
 
-  <BoletoUpdatedModal 
-    v-if="showModalUpdate"
-    :boleto="boletUpdateCurrent"
-    @close="showModalUpdate = false"
-  />
+  <BoletoUpdatedModal v-if="showModalUpdate" :boleto="boletUpdateCurrent" @close="showModalUpdate = false" />
 
-  <LoadingBoleto 
-    v-model="loadingUpdateBolet"
-  />
+  <LoadingBoleto v-model="loadingUpdateBolet" />
 
-  <ModalUploadRash 
-    v-if="showModalLink"
-    :plate="plateHashCurrent"
-    :nosso_numero="nossoNumeroCurrent"
-    @close="showModalLink = false"
-    @updatedBill="updatedBolet"
-  />
+  <ModalUploadRash v-if="showModalLink" :plate="plateHashCurrent" :nosso_numero="nossoNumeroCurrent"
+    @close="showModalLink = false" @updatedBill="updatedBolet" />
 
 </template>
 
@@ -89,6 +200,7 @@ import { validateDocument } from '@/helpers/utils';
 import BoletoUpdatedModal from '@/components/BoletoUpdatedModal.vue';
 import LoadingBoleto from '@/components/LoadingBoleto.vue';
 import ModalUploadRash from '@/components/ModalUploadRash.vue';
+import Swal from 'sweetalert2';
 
 export default {
   name: "Home",
@@ -173,7 +285,7 @@ export default {
 
   methods: {
 
-    async updatedBolet(dataUpdated){
+    async updatedBolet(dataUpdated) {
 
       this.boletUpdateCurrent = dataUpdated.data.data.boleto;
       this.showModalLink = false;
@@ -198,6 +310,14 @@ export default {
 
           this.boletosCurrent = responseBoleto.data.data.filter(bol => bol.situacao_boleto === "ABERTO");
 
+          if(!this.boletosCurrent.length){
+            Swal.fire({
+              icon: 'info',
+              title: 'Nenhum boleto encontrado',
+              text: "Não foram encontrados boletos.",
+            });
+          }
+
           if (this.boletosCurrent.length) this.viewBoletos = true;
 
         } else {
@@ -217,7 +337,15 @@ export default {
 
       } catch (error) {
 
-        alert("Erro");
+        if(error.status === 404){
+          Swal.fire({
+            icon: 'error',
+            title: 'Ops...',
+            text: "Nenhum resultado encontrado para a consulta.",
+          });
+        }
+
+        console.log(error); 
 
       } finally {
         this.loadingButton = false;
@@ -271,7 +399,7 @@ export default {
         bolet?.veiculo?.[0]?.placa ||
         null;
       this.nossoNumeroCurrent = Number(bolet.nosso_numero);
-        
+
       this.showModalLink = true;
 
     }

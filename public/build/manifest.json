@@ -1,10 +1,38 @@
 {
-  "resources/img/MARCA-EVOGARD.png": {
-    "file": "assets/MARCA-EVOGARD-0dut4_eU.png",
-    "src": "resources/img/MARCA-EVOGARD.png"
+  "resources/img/ASSISTENCIA.png": {
+    "file": "assets/ASSISTENCIA-Bx_mGodz.png",
+    "src": "resources/img/ASSISTENCIA.png"
+  },
+  "resources/img/BACK-TEXTURE.png": {
+    "file": "assets/BACK-TEXTURE-BBKj_0tN.png",
+    "src": "resources/img/BACK-TEXTURE.png"
+  },
+  "resources/img/COBERTURA.png": {
+    "file": "assets/COBERTURA-Dg9-eN1z.png",
+    "src": "resources/img/COBERTURA.png"
+  },
+  "resources/img/COBERTURA_COMPLETA.png": {
+    "file": "assets/COBERTURA_COMPLETA-BbK0E8As.png",
+    "src": "resources/img/COBERTURA_COMPLETA.png"
+  },
+  "resources/img/EVOGARD-WHITE.png": {
+    "file": "assets/EVOGARD-WHITE-Dry_Yu-p.png",
+    "src": "resources/img/EVOGARD-WHITE.png"
+  },
+  "resources/img/LOGO-EVOGARD.png": {
+    "file": "assets/LOGO-EVOGARD-DwQmfZYY.png",
+    "src": "resources/img/LOGO-EVOGARD.png"
+  },
+  "resources/img/PROTECAO.png": {
+    "file": "assets/PROTECAO-jTiGMUs8.png",
+    "src": "resources/img/PROTECAO.png"
+  },
+  "resources/img/RASTREADOR.png": {
+    "file": "assets/RASTREADOR-Fb_8sNq4.png",
+    "src": "resources/img/RASTREADOR.png"
   },
   "resources/js/app.ts": {
-    "file": "assets/app-DscidOso.js",
+    "file": "assets/app-DoTDttLb.js",
     "name": "app",
     "src": "resources/js/app.ts",
     "isEntry": true,
@@ -12,11 +40,14 @@
       "resources/js/pages/Home.vue"
     ],
     "css": [
-      "assets/app-XfyGgLmW.css"
+      "assets/app-DlvjCbzA.css"
+    ],
+    "assets": [
+      "assets/BACK-TEXTURE-BBKj_0tN.png"
     ]
   },
   "resources/js/pages/Home.vue": {
-    "file": "assets/Home-C9WWsTUC.js",
+    "file": "assets/Home-B3T9mVON.js",
     "name": "Home",
     "src": "resources/js/pages/Home.vue",
     "isDynamicEntry": true,
@@ -25,7 +56,13 @@
     ],
     "assets": [
       "assets/EXEMPLE_VISTORIA-BDah85lp.mp4",
-      "assets/MARCA-EVOGARD-0dut4_eU.png"
+      "assets/EVOGARD-WHITE-Dry_Yu-p.png",
+      "assets/COBERTURA-Dg9-eN1z.png",
+      "assets/LOGO-EVOGARD-DwQmfZYY.png",
+      "assets/COBERTURA_COMPLETA-BbK0E8As.png",
+      "assets/ASSISTENCIA-Bx_mGodz.png",
+      "assets/RASTREADOR-Fb_8sNq4.png",
+      "assets/PROTECAO-jTiGMUs8.png"
     ]
   },
   "resources/video/EXEMPLE_VISTORIA.mp4": {

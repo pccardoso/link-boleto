@@ -76,7 +76,8 @@
             class="border-2 border-dashed border-gray-300 rounded-xl p-6 text-center cursor-pointer hover:border-(--evogard-orange) transition relative"
             @click="openFile">
 
-            <input ref="file" type="file" class="hidden" accept="video/*" @change="handleFile" />
+            <input ref="file" type="file" class="hidden" accept=".mp4,.avi,.mov,.wmv,.mkv,video/*"
+              @change="handleFile" />
 
             <!-- SEM ARQUIVO -->
             <div v-if="!file" class="flex flex-col items-center gap-3 text-gray-500">
@@ -183,17 +184,26 @@ export default {
     },
 
     handleFile(event) {
+      const file = event.target.files[0];
 
-      const file = event.target.files[0]
+      if (!file) return;
 
-      if (!file) return
-
+      // Validar tipo geral de vídeo
       if (!file.type.startsWith("video/")) {
-        alert("Apenas vídeos são permitidos")
-        return
+        alert("Apenas vídeos são permitidos");
+        return;
       }
 
-      this.file = file
+      // Validar extensão específica
+      const allowedExtensions = ["mp4", "avi", "mov", "wmv", "mkv"];
+      const fileExt = file.name.split(".").pop().toLowerCase();
+
+      if (!allowedExtensions.includes(fileExt)) {
+        alert("Formato de vídeo não permitido. Use: mp4, avi, mov, wmv ou mkv");
+        return;
+      }
+
+      this.file = file;
     },
 
     removeFile() {

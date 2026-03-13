@@ -3,9 +3,9 @@
 
     <div v-for="(boleto, index) in boletos" :key="index"
       class="bg- border border-gray-200 rounded-xl p-4 shadow-sm hover:shadow-md transition duration-200">
-      <div class="flex items-center justify-between">
-      
-        <!-- ESQUERDA -->
+      <div class="flex flex-col md:flex-row md:items-center justify-between gap-4">
+
+        <!-- ESQUERDA (texto) -->
         <div>
           <h2 class="text-sm text-gray-500 tracking-wide">
             Boleto #{{ boleto.nosso_numero }}
@@ -20,8 +20,8 @@
           </p>
         </div>
 
-        <!-- DIREITA -->
-        <div class="flex flex-col items-end gap-3">
+        <!-- DIREITA (status + botões) -->
+        <div class="flex flex-col md:flex-row md:items-center gap-3">
 
           <!-- Status -->
           <span :class="[
@@ -34,8 +34,7 @@
           </span>
 
           <!-- Botões -->
-          <div class="flex gap-2">
-
+          <div class="flex flex-col md:flex-row gap-2 mt-2 md:mt-0">
             <!-- Ver boleto -->
             <a :href="boleto.link_boleto" target="_blank"
               class="bg-(--evogard-blue) hover:bg-(--evogard-orange) text-white text-sm px-4 py-2 rounded-lg transition duration-200">
@@ -47,61 +46,57 @@
               class="bg-emerald-600 hover:bg-emerald-700 text-white text-sm px-4 py-2 rounded-lg transition duration-200">
               <i class="fa-brands fa-pix"></i> {{ copiedIndex === index ? 'Copiado!' : 'Copiar Pix' }}
             </button>
+          </div>
+
+        </div>
+
+      </div>
+
+      <div v-if="isExpired(boleto.data_vencimento_original)"
+        class="mt-3 rounded-xl border border-red-300 bg-red-50 p-4 shadow-sm transition-all">
+
+        <div class="flex flex-col md:flex-row md:items-start md:justify-between gap-4">
+
+          <!-- Lado esquerdo -->
+          <div class="flex items-start gap-3">
+            <div class="bg-red-200 p-2 rounded-full w-10 h-10 flex justify-center items-center">
+              <i class="fa-solid fa-triangle-exclamation text-red-500 text-[22px]"></i>
+            </div>
+
+            <div>
+              <p class="text-red-700 font-semibold text-sm">
+                Boleto expirado
+              </p>
+
+              <p class="text-gray-600 text-sm mt-1">
+                Está vencido há
+                <span class="font-bold text-red-600">
+                  {{ daysLate(boleto.data_vencimento_original) }} dias
+                </span>
+              </p>
+            </div>
+          </div>
+
+          <!-- Ações -->
+          <div class="flex w-full md:w-auto">
+
+            <!-- Mais de 5 dias -->
+            <button v-if="daysLate(boleto.data_vencimento_original) > 5" @click="$emit('actionLinkSurvey', boleto)"
+              class="w-full md:w-auto bg-red-600 hover:bg-red-700 text-white text-sm px-4 py-3 md:py-2 rounded-lg transition-all shadow-md">
+              <i class="fa-solid fa-camera mr-1"></i>
+              Fazer Vistoria
+            </button>
+
+            <!-- Até 5 dias -->
+            <button v-else-if="daysLate(boleto.data_vencimento_original) <= 5" @click="atualizarBoleto(boleto)"
+              class="w-full md:w-auto bg-blue-600 hover:bg-blue-700 text-white text-sm px-4 py-3 md:py-2 rounded-lg transition-all shadow-md">
+              Atualizar boleto
+            </button>
 
           </div>
 
         </div>
       </div>
-
-      <div v-if="isExpired(boleto.data_vencimento_original)"
-  class="mt-3 rounded-xl border border-red-300 bg-red-50 p-4 shadow-sm transition-all">
-
-  <div class="flex flex-col md:flex-row md:items-start md:justify-between gap-4">
-
-    <!-- Lado esquerdo -->
-    <div class="flex items-start gap-3">
-      <div class="bg-red-200 p-2 rounded-full w-10 h-10 flex justify-center items-center">
-        <i class="fa-solid fa-triangle-exclamation text-red-500 text-[22px]"></i>
-      </div>
-
-      <div>
-        <p class="text-red-700 font-semibold text-sm">
-          Boleto expirado
-        </p>
-
-        <p class="text-gray-600 text-sm mt-1">
-          Está vencido há
-          <span class="font-bold text-red-600">
-            {{ daysLate(boleto.data_vencimento_original) }} dias
-          </span>
-        </p>
-      </div>
-    </div>
-
-    <!-- Ações -->
-    <div class="flex w-full md:w-auto">
-
-      <!-- Mais de 5 dias -->
-      <button
-        v-if="daysLate(boleto.data_vencimento_original) > 5"
-        @click="$emit('actionLinkSurvey', boleto)"
-        class="w-full md:w-auto bg-red-600 hover:bg-red-700 text-white text-sm px-4 py-3 md:py-2 rounded-lg transition-all shadow-md">
-        <i class="fa-solid fa-camera mr-1"></i>
-        Fazer Vistoria
-      </button>
-
-      <!-- Até 5 dias -->
-      <button
-        v-else-if="daysLate(boleto.data_vencimento_original) <= 5"
-        @click="atualizarBoleto(boleto)"
-        class="w-full md:w-auto bg-blue-600 hover:bg-blue-700 text-white text-sm px-4 py-3 md:py-2 rounded-lg transition-all shadow-md">
-        Atualizar boleto
-      </button>
-
-    </div>
-
-  </div>
-</div>
     </div>
 
   </div>
