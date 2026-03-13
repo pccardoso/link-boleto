@@ -7,6 +7,10 @@
     "file": "assets/BACK-TEXTURE-BBKj_0tN.png",
     "src": "resources/img/BACK-TEXTURE.png"
   },
+  "resources/img/COBERTURA-WHITE.png": {
+    "file": "assets/COBERTURA-WHITE-BVjU16fp.png",
+    "src": "resources/img/COBERTURA-WHITE.png"
+  },
   "resources/img/COBERTURA_COMPLETA.png": {
     "file": "assets/COBERTURA_COMPLETA-BbK0E8As.png",
     "src": "resources/img/COBERTURA_COMPLETA.png"
@@ -32,7 +36,7 @@
     "src": "resources/img/RASTREADOR.png"
   },
   "resources/js/app.ts": {
-    "file": "assets/app-AvEyidbm.js",
+    "file": "assets/app-BdXHivTY.js",
     "name": "app",
     "src": "resources/js/app.ts",
     "isEntry": true,
@@ -40,14 +44,14 @@
       "resources/js/pages/Home.vue"
     ],
     "css": [
-      "assets/app-DJMJWNe6.css"
+      "assets/app-XQpzA7ll.css"
     ],
     "assets": [
       "assets/BACK-TEXTURE-BBKj_0tN.png"
     ]
   },
   "resources/js/pages/Home.vue": {
-    "file": "assets/Home-7AHLhWCQ.js",
+    "file": "assets/Home-Co_JJv0n.js",
     "name": "Home",
     "src": "resources/js/pages/Home.vue",
     "isDynamicEntry": true,
@@ -57,6 +61,7 @@
     "assets": [
       "assets/EXEMPLE_VISTORIA-BDah85lp.mp4",
       "assets/EVOGARD-WHITE-Dry_Yu-p.png",
+      "assets/COBERTURA-WHITE-BVjU16fp.png",
       "assets/MEU VEICULO-BACmV8R-.png",
       "assets/LOGO-EVOGARD-DwQmfZYY.png",
       "assets/COBERTURA_COMPLETA-BbK0E8As.png",

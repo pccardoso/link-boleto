@@ -11,9 +11,11 @@
         <div>
 
           <!-- IMAGENS -->
-          <div class="flex flex-col items-center gap-3 mb-6 sm:flex-row sm:justify-start sm:gap-4">
+          <div class="flex flex-col space-y-4 sm:space-x-8 items-center gap-3 mb-6 sm:flex-row sm:justify-start sm:gap-4">
 
             <img src="../../img/EVOGARD-WHITE.png" class="h-14 sm:h-20 object-contain">
+
+            <img src="../../img/COBERTURA-WHITE.png" class="h-12 sm:h-16 object-contain">
 
             <img src="../../img/MEU VEICULO.png" class="h-12 sm:h-16 object-contain">
 
