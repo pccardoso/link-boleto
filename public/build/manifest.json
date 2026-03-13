@@ -32,7 +32,7 @@
     "src": "resources/img/RASTREADOR.png"
   },
   "resources/js/app.ts": {
-    "file": "assets/app-ygLYOO6c.js",
+    "file": "assets/app-BV7ryhsn.js",
     "name": "app",
     "src": "resources/js/app.ts",
     "isEntry": true,
@@ -40,14 +40,14 @@
       "resources/js/pages/Home.vue"
     ],
     "css": [
-      "assets/app-DJMJWNe6.css"
+      "assets/app-YW1RwiFj.css"
     ],
     "assets": [
       "assets/BACK-TEXTURE-BBKj_0tN.png"
     ]
   },
   "resources/js/pages/Home.vue": {
-    "file": "assets/Home-DDp5a4Nj.js",
+    "file": "assets/Home-1FnayAAy.js",
     "name": "Home",
     "src": "resources/js/pages/Home.vue",
     "isDynamicEntry": true,

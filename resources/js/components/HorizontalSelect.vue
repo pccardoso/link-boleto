@@ -7,7 +7,7 @@
         ? 'bg-(--evogard-orange) text-white border-(--evogard-orange)'
         : 'bg-white text-gray-700 border-gray-300 hover:bg-blue-50'">
       <!-- Ícone -->
-      <i :class="option.icon"></i>
+      <i :class="`${option.icon} text-[26px]`" ></i>
 
       <!-- Label -->
       <span class="text-sm font-medium">
