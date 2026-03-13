@@ -7,10 +7,6 @@
     "file": "assets/BACK-TEXTURE-BBKj_0tN.png",
     "src": "resources/img/BACK-TEXTURE.png"
   },
-  "resources/img/COBERTURA-WHITE.png": {
-    "file": "assets/COBERTURA-WHITE-BVjU16fp.png",
-    "src": "resources/img/COBERTURA-WHITE.png"
-  },
   "resources/img/COBERTURA_COMPLETA.png": {
     "file": "assets/COBERTURA_COMPLETA-BbK0E8As.png",
     "src": "resources/img/COBERTURA_COMPLETA.png"
@@ -23,6 +19,10 @@
     "file": "assets/LOGO-EVOGARD-DwQmfZYY.png",
     "src": "resources/img/LOGO-EVOGARD.png"
   },
+  "resources/img/MEU VEICULO.png": {
+    "file": "assets/MEU VEICULO-BACmV8R-.png",
+    "src": "resources/img/MEU VEICULO.png"
+  },
   "resources/img/PROTECAO.png": {
     "file": "assets/PROTECAO-jTiGMUs8.png",
     "src": "resources/img/PROTECAO.png"
@@ -32,7 +32,7 @@
     "src": "resources/img/RASTREADOR.png"
   },
   "resources/js/app.ts": {
-    "file": "assets/app-DxaM5KT9.js",
+    "file": "assets/app-AvEyidbm.js",
     "name": "app",
     "src": "resources/js/app.ts",
     "isEntry": true,
@@ -47,7 +47,7 @@
     ]
   },
   "resources/js/pages/Home.vue": {
-    "file": "assets/Home-Bzpg73BS.js",
+    "file": "assets/Home-7AHLhWCQ.js",
     "name": "Home",
     "src": "resources/js/pages/Home.vue",
     "isDynamicEntry": true,
@@ -57,7 +57,7 @@
     "assets": [
       "assets/EXEMPLE_VISTORIA-BDah85lp.mp4",
       "assets/EVOGARD-WHITE-Dry_Yu-p.png",
-      "assets/COBERTURA-WHITE-BVjU16fp.png",
+      "assets/MEU VEICULO-BACmV8R-.png",
       "assets/LOGO-EVOGARD-DwQmfZYY.png",
       "assets/COBERTURA_COMPLETA-BbK0E8As.png",
       "assets/ASSISTENCIA-Bx_mGodz.png",

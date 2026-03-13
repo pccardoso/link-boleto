@@ -15,7 +15,7 @@
 
             <img src="../../img/EVOGARD-WHITE.png" class="h-14 sm:h-20 object-contain">
 
-            <img src="../../img/COBERTURA-WHITE.png" class="h-12 sm:h-16 object-contain">
+            <img src="../../img/MEU VEICULO.png" class="h-12 sm:h-16 object-contain">
 
           </div>
 
