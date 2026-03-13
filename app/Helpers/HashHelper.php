@@ -9,7 +9,7 @@ class HashHelper
         $parts = [];
 
         for ($i = 0; $i < $groups; $i++) {
-            $parts[] = strtoupper(str_pad(dechex(random_int(0, 255)), 2, '0', STR_PAD_LEFT));
+            $parts[] = str_pad((string) random_int(0, 99), 2, '0', STR_PAD_LEFT);
         }
 
         return implode('-', $parts);

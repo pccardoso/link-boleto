@@ -11,22 +11,22 @@
         <div>
 
           <!-- IMAGENS -->
-          <div class="flex items-center gap-4 mb-6">
+          <div class="flex flex-col items-center gap-3 mb-6 sm:flex-row sm:justify-start sm:gap-4">
 
-            <img src="../../img/EVOGARD-WHITE.png" class="h-16 object-contain">
-            <img src="../../img/COBERTURA.png" class="h-16 object-contain">
-            <img src="../../img/EVOGARD-WHITE.png" class="h-16 object-contain">
+            <img src="../../img/EVOGARD-WHITE.png" class="h-14 sm:h-20 object-contain">
+
+            <img src="../../img/COBERTURA-WHITE.png" class="h-12 sm:h-16 object-contain">
 
           </div>
 
           <!-- TÍTULO -->
-          <h1 class="text-5xl font-bold text-white leading-tight">
+          <h1 class="text-5xl font-bold text-center sm:text-left text-white leading-tight">
             MANTENHA SEU VEÍCULO <br />
             100% PROTEGIDO.
           </h1>
 
           <!-- SUBTEXTO -->
-          <p class="text-orange-500 text-[25px] font-semibold mt-6">
+          <p class="text-orange-500 text-center sm:text-left text-[25px] font-semibold mt-6">
             Emita agora a segunda via do seu boleto de forma rápida e segura.
           </p>
 
@@ -74,7 +74,7 @@
             <div class="flex gap-3">
 
               <BaseButton :loading="loadingButton" :disabled="validateInput" @click="getPlate">
-                Consultar Boletos
+                Consultar
               </BaseButton>
 
               <button @click="clearForm"
@@ -140,7 +140,7 @@
     </section>
 
     <!-- FOOTER -->
-    <footer class="bg-(--evogard-blue) text-white pt-10 pb-6">
+    <footer class="bg-(--evogard-blue) text-white pt-10 pb-6 bg-textura">
 
       <div class="max-w-7xl mx-auto px-6">
 
@@ -151,7 +151,7 @@
             <img src="../../img/EVOGARD-WHITE.png" class="h-10">
           </div>
 
-        
+
 
           <!-- CONTATO -->
           <div class="flex flex-col items-center md:items-end gap-3">
@@ -164,10 +164,6 @@
               <i class="fas fa-phone"></i>
               +55 800 000 4312
             </div>
-
-            <span class="text-sm text-gray-200">
-              Atendimento de segunda a sexta
-            </span>
 
           </div>
 
@@ -310,7 +306,7 @@ export default {
 
           this.boletosCurrent = responseBoleto.data.data.filter(bol => bol.situacao_boleto === "ABERTO");
 
-          if(!this.boletosCurrent.length){
+          if (!this.boletosCurrent.length) {
             Swal.fire({
               icon: 'info',
               title: 'Nenhum boleto encontrado',
@@ -337,7 +333,7 @@ export default {
 
       } catch (error) {
 
-        if(error.status === 404){
+        if (error.status === 404) {
           Swal.fire({
             icon: 'error',
             title: 'Ops...',
@@ -345,7 +341,7 @@ export default {
           });
         }
 
-        console.log(error); 
+        console.log(error);
 
       } finally {
         this.loadingButton = false;
