@@ -12,12 +12,12 @@
         <div class="flex items-center gap-3">
 
           <div class="w-10 h-10 flex justify-center items-center bg-(--evogard-orange-rgba) rounded-lg text-xl">
-            <i class="fa-solid fa-file-invoice-dollar text-(--evogard-orange)"></i>
+            <i class="fa-solid fa-video text-(--evogard-orange)"></i>
 
           </div>
 
           <h2 class="text-lg font-semibold text-neutral-600">
-            Boleto atualizado
+            Fazer Vistoria - {{ plate }}
           </h2>
         </div>
 
@@ -46,23 +46,38 @@
           </p>
 
         </div>
-        <div class="space-y-4 flex justify-center">
 
-          <!-- Botão -->
-          <button v-if="!showVideo" @click="showVideo = true"
-            class="px-4 py-2 bg-(--evogard-orange) text-white rounded-lg hover:bg-(--evogard-blue) transition">
-            <i class="fa-solid fa-circle-play"></i>
-            Ver modelo de vídeo
-          </button>
+        <div class="flex justify-center">
+          <div class="w-full max-w-2xl space-y-4">
 
-          <!-- Vídeo -->
-          <div v-if="showVideo" class="rounded-xl overflow-hidden shadow-lg border border-gray-200">
-            <video controls class="w-full">
-              <source src="../../video/EXEMPLE_VISTORIA.mp4" type="video/mp4">
-              Seu navegador não suporta vídeo.
-            </video>
+            <!-- Seleção -->
+            <div v-if="!videoType" class="flex justify-center gap-4">
+
+              <button @click="selectVideo('carro')" :class="videoType === 'carro'
+                ? 'bg-(--evogard-orange) text-white'
+                : 'bg-gray-200 text-gray-700'"
+                class="px-4 py-2 rounded-lg flex items-center gap-2 transition hover:scale-105">
+                <i class="fa-solid fa-car"></i> Modelo Carro
+              </button>
+
+              <button @click="selectVideo('moto')" :class="videoType === 'moto'
+                ? 'bg-(--evogard-orange) text-white'
+                : 'bg-gray-200 text-gray-700'"
+                class="px-4 py-2 rounded-lg flex items-center gap-2 transition hover:scale-105">
+                <i class="fa-solid fa-motorcycle"></i> Modelo Moto
+              </button>
+
+            </div>
+
+            <!-- Player -->
+            <div v-if="videoType" class="rounded-xl overflow-hidden shadow-lg border border-gray-200">
+              <video controls class="w-full">
+                <source :src="videoSrc" type="video/mp4">
+                Seu navegador não suporta vídeo.
+              </video>
+            </div>
+
           </div>
-
         </div>
 
         <!-- UPLOAD -->
@@ -149,6 +164,8 @@
 <script>
 import { validateHashPlate, uploadMoovie } from "@/api/hash-plate"
 import LoadingBoleto from "./LoadingBoleto.vue";
+import videoCarro from "../../video/EXEMPLE_VISTORIA.mp4";
+import videoMoto from "../../video/EXEMPLE_VISTORIA_MOTO.mp4";
 
 export default {
 
@@ -174,10 +191,27 @@ export default {
       hash: "",
       file: null,
       showVideo: false,
-      loading: false
+      loading: false,
+      videoType: null,
     }
   },
+
+  computed: {
+    videoSrc() {
+      if (this.videoType === "carro") {
+        return videoCarro
+      } else if (this.videoType === "moto") {
+        return videoMoto
+      }
+      return null
+    }
+  },
+
   methods: {
+
+    selectVideo(type) {
+      this.videoType = type
+    },
 
     openFile() {
       this.$refs.file.click()
