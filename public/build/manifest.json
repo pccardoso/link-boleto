@@ -36,7 +36,7 @@
     "src": "resources/img/RASTREADOR.png"
   },
   "resources/js/app.ts": {
-    "file": "assets/app-C53j4osa.js",
+    "file": "assets/app-Bg2L3Hky.js",
     "name": "app",
     "src": "resources/js/app.ts",
     "isEntry": true,
@@ -44,19 +44,22 @@
       "resources/js/pages/Home.vue"
     ],
     "css": [
-      "assets/app-fJpzDp77.css"
+      "assets/app-CCN3pdKs.css"
     ],
     "assets": [
       "assets/BACK-TEXTURE-BBKj_0tN.png"
     ]
   },
   "resources/js/pages/Home.vue": {
-    "file": "assets/Home-yJnHrgk2.js",
+    "file": "assets/Home-74JZEIdJ.js",
     "name": "Home",
     "src": "resources/js/pages/Home.vue",
     "isDynamicEntry": true,
     "imports": [
       "resources/js/app.ts"
+    ],
+    "css": [
+      "assets/Home-CKvKBCyR.css"
     ],
     "assets": [
       "assets/EXEMPLE_VISTORIA-BDah85lp.mp4",

@@ -1,0 +1,1 @@
+@keyframes slide{0%{transform:translate(0)}to{transform:translate(-50%)}}.animate-slide{animation:slide 12s linear infinite}.animate-slide:hover{animation-play-state:paused}

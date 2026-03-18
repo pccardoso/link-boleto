@@ -10,14 +10,24 @@
         <!-- TEXTO ESQUERDA -->
         <div>
 
-          <!-- IMAGENS -->
-          <div class="flex flex-col space-y-4 sm:space-x-8 items-center gap-3 mb-6 sm:flex-row sm:justify-start sm:gap-4">
+          <div class="overflow-hidden w-full mb-6">
 
-            <img src="../../img/EVOGARD-WHITE.png" class="h-14 sm:h-20 object-contain">
+            <div class="flex animate-slide gap-10 items-center">
 
-            <img src="../../img/COBERTURA-WHITE.png" class="h-12 sm:h-16 object-contain">
+              <img src="../../img/EVOGARD-WHITE.png" class="h-14 sm:h-20 object-contain">
 
-            <img src="../../img/MEU VEICULO.png" class="h-12 sm:h-16 object-contain">
+              <img src="../../img/COBERTURA-WHITE.png" class="h-12 sm:h-16 object-contain">
+
+              <img src="../../img/MEU VEICULO.png" class="h-12 sm:h-16 object-contain">
+
+              <!-- duplicar imagens para efeito infinito -->
+              <img src="../../img/EVOGARD-WHITE.png" class="h-14 sm:h-20 object-contain">
+
+              <img src="../../img/COBERTURA-WHITE.png" class="h-12 sm:h-16 object-contain">
+
+              <img src="../../img/MEU VEICULO.png" class="h-12 sm:h-16 object-contain">
+
+            </div>
 
           </div>
 
@@ -405,3 +415,24 @@ export default {
   }
 }
 </script>
+
+<style>
+
+@keyframes slide {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+.animate-slide {
+  animation: slide 12s linear infinite;
+}
+
+.animate-slide:hover {
+  animation-play-state: paused;
+}
+
+</style>
