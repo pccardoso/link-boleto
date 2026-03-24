@@ -37,6 +37,14 @@ class SGAController extends Controller
 
         $bolet = $this->serviceSGA->listBoletOfUser($cpfOrCnpj);
 
+        if(!$bolet){
+            return response()->json([
+                "message" => "Nenhum boleto encontrado para o CPF/CNPJ informado!",
+                "status" => 200,
+                "data" => []
+            ], 200);
+        }
+
         return response()->json([
             "message" => "Boletos encontradas",
             "status" => 200,
