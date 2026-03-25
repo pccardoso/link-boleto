@@ -67,4 +67,12 @@
 
         }
 
+        public function getAll(){
+
+            $hashList = HashPlate::with('upload')->get();
+
+            return $hashList;
+
+        }
+
     }

@@ -15,4 +15,8 @@ class HashPlate extends Model
         'hash'
     ];
 
+    public function upload(){
+        return $this->hasMany(UploadHash::class, 'hash_plate_id');
+    }
+
 }

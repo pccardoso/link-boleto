@@ -17,8 +17,8 @@
         Dashboard
         </Link>
 
-        <Link href="/tickets" :class="navClass('/tickets')">
-        Tickets
+        <Link href="/links" :class="navClass('/links')">
+        Links
         </Link>
 
         <Link href="/users" :class="navClass('/users')">

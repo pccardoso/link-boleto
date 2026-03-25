@@ -23,7 +23,25 @@ class HashPlateController extends Controller
      */
     public function index()
     {
-        //
+    
+        $hashList = $this->hashService->getAll();
+
+        if($hashList){
+
+            return response()->json([
+                "message" => "Lista de hash plates obtida com sucesso!",
+                "data" => $hashList,
+                "status" => 200
+            ], 200);
+
+        }
+
+        return response()->json([
+            "message" => "Nenhuma hash plate encontrada!",
+            "data" => [],
+            "status" => 404
+        ], 404);
+
     }
 
     /**

@@ -5,6 +5,7 @@ use Laravel\Fortify\Features;
 use Inertia\Inertia;
 use App\Http\Controllers\SGAController;
 use App\Http\Controllers\HashPlateController;
+use App\Http\Controllers\UploadHashController;
 use App\Http\Controllers\UserController;
 
 # ROTAS PÚBLICAS
@@ -58,6 +59,16 @@ Route::middleware(['auth'])->group(function () {
         Route::get('/', function () {
             return Inertia::render('user/UserView');
         })->name('users.index');
+
+    });
+
+    Route::prefix('links')->group(function () {
+
+        Route::get('/', function () {
+            return Inertia::render('link/LinkView');
+        })->name('links.index');
+        
+        Route::get('/all', [HashPlateController::class, 'index'])->name('links.all');
 
     });
 
