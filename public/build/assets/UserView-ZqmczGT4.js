@@ -1,0 +1,1 @@
+import{_ as o,c as a,a as e,o as t}from"./app-0jII3BGF.js";const n={name:"UserView",components:{}},r={class:"p-6"};function c(d,s,i,p,l,m){return t(),a("div",r,[...s[0]||(s[0]=[e("h1",{class:"text-2xl font-bold mb-4"},"Dashboard",-1),e("p",null,"Bem-vindo ao dashboard! Aqui você pode acessar as funcionalidades do sistema.",-1)])])}const f=o(n,[["render",c]]);export{f as default};

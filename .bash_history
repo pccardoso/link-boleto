@@ -16,3 +16,15 @@ exit
 php artisan optimize
 php artisan optimize:clear
 exit
+clear
+clear
+php artisan migrate
+exit
+clear
+php artisan optimize:clear
+php artisan optimize
+exit
+clear
+php artisan optimize
+php artisan optimize:clear
+exit

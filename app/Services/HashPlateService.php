@@ -3,6 +3,7 @@
     namespace App\Services;
 
     use App\Models\HashPlate;
+    use App\Models\UploadHash;
     use App\Helpers\HashHelper;
     use Carbon\Carbon;
     use App\Controllers\Requests\UploadFileRequest;
@@ -35,6 +36,15 @@
                 $data['moovie'],
                 $fileName
             );
+
+            if($uploadPath){
+
+                UploadHash::create([
+                    "path" => $uploadPath,
+                    "hash_plate_id" => $hashGet->id
+                ]);
+
+            }
 
             return $uploadPath;
 
