@@ -21,7 +21,6 @@
 
   </div>
 
-
   <!-- TABLE -->
   <div class="overflow-x-auto">
 
@@ -79,7 +78,6 @@
 
   </div>
 
-
   <!-- PAGINATION -->
   <div class="flex justify-between items-center mt-4">
 
@@ -87,22 +85,57 @@
       Mostrando {{ startItem }} - {{ endItem }} de {{ filteredData.length }}
     </span>
 
-    <div class="flex gap-2">
+    <div class="flex items-center gap-1">
 
+      <!-- anterior -->
       <button
         class="px-3 py-1 border rounded"
         :disabled="page === 1"
         @click="page--"
       >
-        Anterior
+        <
       </button>
 
+      <!-- primeira -->
+      <button
+        v-if="visiblePages[0] > 1"
+        @click="page = 1"
+        class="px-3 py-1 border rounded"
+      >
+        1
+      </button>
+
+      <span v-if="visiblePages[0] > 2">...</span>
+
+      <!-- paginas -->
+      <button
+        v-for="p in visiblePages"
+        :key="p"
+        @click="page = p"
+        class="px-3 py-1 border rounded"
+        :class="p === page ? 'bg-blue-500 text-white' : ''"
+      >
+        {{ p }}
+      </button>
+
+      <span v-if="visiblePages[visiblePages.length - 1] < totalPages - 1">...</span>
+
+      <!-- ultima -->
+      <button
+        v-if="visiblePages[visiblePages.length - 1] < totalPages"
+        @click="page = totalPages"
+        class="px-3 py-1 border rounded"
+      >
+        {{ totalPages }}
+      </button>
+
+      <!-- proximo -->
       <button
         class="px-3 py-1 border rounded"
         :disabled="page === totalPages"
         @click="page++"
       >
-        Próximo
+        >
       </button>
 
     </div>
@@ -112,7 +145,6 @@
 </div>
 
 </template>
-
 
 <script>
 export default {
@@ -169,6 +201,25 @@ export default {
       const end = start + this.perPage
 
       return this.filteredData.slice(start, end)
+
+    },
+
+    visiblePages(){
+
+      const pages = []
+      const range = 2
+
+      let start = this.page - range
+      let end = this.page + range
+
+      if(start < 1) start = 1
+      if(end > this.totalPages) end = this.totalPages
+
+      for(let i = start; i <= end; i++){
+        pages.push(i)
+      }
+
+      return pages
 
     },
 
