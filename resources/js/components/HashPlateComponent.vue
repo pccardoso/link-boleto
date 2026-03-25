@@ -33,6 +33,7 @@
           <th class="px-6 py-3">Hash</th>
           <th class="px-6 py-3">Arquivo</th>
           <th class="px-6 py-3">Criado em</th>
+          <th class="px-6 py-3">Ações</th>
         </tr>
       </thead>
 
@@ -57,7 +58,7 @@
           <td class="px-6 py-4">
 
             <span v-if="item.upload && item.upload.length">
-              {{ item.upload[0].path }}
+              {{ item.upload.length }} arquivo(s)
             </span>
 
             <span v-else class="text-red-500">
@@ -68,6 +69,17 @@
 
           <td class="px-6 py-4">
             {{ formatDate(item.created_at) }}
+          </td>
+
+          <td class="px-6 py-4">
+
+            <button
+              @click="viewItem(item)"
+              class="text-blue-500 hover:text-blue-700"
+            >
+              Anexos
+            </button>
+
           </td>
 
         </tr>
@@ -157,6 +169,8 @@ export default {
       required: true
     }
   },
+
+  emits: ['view-item'],
 
   data(){
     return{
@@ -253,6 +267,10 @@ export default {
     formatDate(date){
       if(!date) return "-"
       return new Date(date).toLocaleString('pt-BR')
+    },
+
+    viewItem(item){
+      this.$emit('view-item', item)
     }
 
   }

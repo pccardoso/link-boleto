@@ -1,1 +1,0 @@
-import{_ as o,c as a,a as e,o as t}from"./app-Ch0TdINS.js";const r={name:"Dashboard"},n={class:"p-6"};function c(d,s,p,_,l,f){return t(),a("div",n,[...s[0]||(s[0]=[e("h1",{class:"text-2xl font-bold mb-4"},"Dashboard",-1)])])}const m=o(r,[["render",c]]);export{m as default};

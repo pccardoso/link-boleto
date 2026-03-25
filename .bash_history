@@ -74,3 +74,13 @@ clear
 exit
 clear
 exit
+clear
+php artisan optimize
+php artisan optimize:clear
+exit
+php artisan optimize
+php artisan optimize:clear
+php artisan optimize:clear
+php artisan optimize
+exitt
+exit

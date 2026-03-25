@@ -69,6 +69,7 @@ Route::middleware(['auth'])->group(function () {
         })->name('links.index');
         
         Route::get('/all', [HashPlateController::class, 'index'])->name('links.all');
+        Route::get('/get-upload/{id_hash}', [UploadHashController::class, 'listUploadHash'])->name('links.detail');
 
     });
 
