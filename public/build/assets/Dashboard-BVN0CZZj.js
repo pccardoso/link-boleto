@@ -1,0 +1,1 @@
+import{_ as o,c as e,a as s,o as t}from"./app-wy-iDAcU.js";const d={name:"Dashboard"},n={class:"p-6"};function r(c,a,i,l,p,_){return t(),e("div",n,[...a[0]||(a[0]=[s("h1",{class:"text-2xl font-bold mb-4"},"Dashboard",-1),s("p",null,"Bem-vindo ao dashboard! Aqui você pode acessar as funcionalidades do sistema.",-1)])])}const m=o(d,[["render",r]]);export{m as default};
