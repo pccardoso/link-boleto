@@ -5,6 +5,9 @@ use Laravel\Fortify\Features;
 use Inertia\Inertia;
 use App\Http\Controllers\SGAController;
 use App\Http\Controllers\HashPlateController;
+use App\Http\Controllers\UserController;
+
+# ROTAS PÚBLICAS
 
 Route::get('/', function(){
     return Inertia::render("Home");
@@ -21,5 +24,41 @@ Route::prefix('hash-plate')->group(function(){
 
     Route::post('/', [HashPlateController::class, 'store']);
     Route::post('/upload-moovie', [HashPlateController::class, 'uploadMoovie']);
+
+});
+
+
+Route::prefix('login')->group(function () {
+
+    Route::get('/', function () {
+        return Inertia::render('Login');
+    })->middleware('guest')->name('login');
+
+    Route::post('/login', [UserController::class, 'login'])->name('user.login');
+
+});
+
+Route::get('/home', function () {
+    return Inertia::render('Dashboard');
+})->name('home');
+
+
+#ROTAS PROTEGIDAS
+
+Route::middleware(['auth'])->group(function () {
+
+    Route::get('/dashboard', function () {
+        return Inertia::render('Dashboard');
+    })->name('dashboard');
+
+    Route::post('/logout', [UserController::class, 'logout'])->name('user.logout');
+
+    Route::prefix('users')->group(function () {
+    
+        Route::get('/', function () {
+            return Inertia::render('user/UserView');
+        })->name('users.index');
+
+    });
 
 });

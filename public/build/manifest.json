@@ -36,22 +36,35 @@
     "src": "resources/img/RASTREADOR.png"
   },
   "resources/js/app.ts": {
-    "file": "assets/app-CtdfBiCf.js",
+    "file": "assets/app-DcBxmKpd.js",
     "name": "app",
     "src": "resources/js/app.ts",
     "isEntry": true,
     "dynamicImports": [
-      "resources/js/pages/Home.vue"
+      "resources/js/pages/Dashboard.vue",
+      "resources/js/pages/Home.vue",
+      "resources/js/pages/Login.vue",
+      "resources/js/pages/user/UserView.vue"
     ],
     "css": [
-      "assets/app-BFNcoEeU.css"
+      "assets/app-BNZdh47Y.css"
     ],
     "assets": [
+      "assets/EVOGARD-WHITE-Dry_Yu-p.png",
       "assets/BACK-TEXTURE-BBKj_0tN.png"
     ]
   },
+  "resources/js/pages/Dashboard.vue": {
+    "file": "assets/Dashboard-SxSqVw0-.js",
+    "name": "Dashboard",
+    "src": "resources/js/pages/Dashboard.vue",
+    "isDynamicEntry": true,
+    "imports": [
+      "resources/js/app.ts"
+    ]
+  },
   "resources/js/pages/Home.vue": {
-    "file": "assets/Home-CxPbkA1b.js",
+    "file": "assets/Home-Cx2-Y4e_.js",
     "name": "Home",
     "src": "resources/js/pages/Home.vue",
     "isDynamicEntry": true,
@@ -64,7 +77,6 @@
     "assets": [
       "assets/EXEMPLE_VISTORIA-BDah85lp.mp4",
       "assets/EXEMPLE_VISTORIA_MOTO-DShHrk3w.mp4",
-      "assets/EVOGARD-WHITE-Dry_Yu-p.png",
       "assets/COBERTURA-WHITE-BVjU16fp.png",
       "assets/MEU VEICULO-BACmV8R-.png",
       "assets/LOGO-EVOGARD-DwQmfZYY.png",
@@ -72,6 +84,24 @@
       "assets/ASSISTENCIA-Bx_mGodz.png",
       "assets/RASTREADOR-Fb_8sNq4.png",
       "assets/PROTECAO-jTiGMUs8.png"
+    ]
+  },
+  "resources/js/pages/Login.vue": {
+    "file": "assets/Login-DtF3Tsml.js",
+    "name": "Login",
+    "src": "resources/js/pages/Login.vue",
+    "isDynamicEntry": true,
+    "imports": [
+      "resources/js/app.ts"
+    ]
+  },
+  "resources/js/pages/user/UserView.vue": {
+    "file": "assets/UserView-XIztXnFZ.js",
+    "name": "UserView",
+    "src": "resources/js/pages/user/UserView.vue",
+    "isDynamicEntry": true,
+    "imports": [
+      "resources/js/app.ts"
     ]
   },
   "resources/video/EXEMPLE_VISTORIA.mp4": {
