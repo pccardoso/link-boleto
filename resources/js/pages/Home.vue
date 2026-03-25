@@ -212,7 +212,7 @@ import Swal from 'sweetalert2';
 
 export default {
   name: "Home",
-  layout: null,
+  layout: null ,
 
   data() {
     return {

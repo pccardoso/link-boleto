@@ -24,10 +24,10 @@ createInertiaApp({
         const guestPages = ['Login', 'Home']
 
         if (page.default.layout === undefined) {
-    page.default.layout = guestPages.includes(name)
-        ? GuestLayout
-        : AuthenticatedLayout
-}
+            page.default.layout = guestPages.includes(name)
+                ? GuestLayout
+                : AuthenticatedLayout
+        }
 
         return page
 
