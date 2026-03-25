@@ -72,3 +72,5 @@ git add .
 git commit -m "marter: comando"
 clear
 exit
+clear
+exit
