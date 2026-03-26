@@ -77,6 +77,16 @@
                 class="w-full px-4 py-3 border text-gray-600 border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition" />
             </div>
 
+            <div v-if="tipoSelecionado === 'plate'"
+              class="bg-blue-50 border border-blue-200 text-blue-800 rounded-lg p-4 flex items-start gap-3 mb-4">
+              <i class="fa-solid fa-circle-info text-blue-500 mt-1"></i>
+
+              <p class="text-sm">
+                Caso o veículo <strong>não possua placa</strong> (ex: veículo <strong>0km</strong>),
+                realize a busca utilizando o <strong>CPF do proprietário</strong>.
+              </p>
+            </div>
+
             <VehicleListComponent :veiculos="veiculos" @selectedPlate="actionSelectedPlate" class="mb-4"
               v-if="tipoSelecionado === 'cpf'" />
 
@@ -212,7 +222,7 @@ import Swal from 'sweetalert2';
 
 export default {
   name: "Home",
-  layout: null ,
+  layout: null,
 
   data() {
     return {
@@ -225,7 +235,7 @@ export default {
       ],
       tipoSelecionado: "plate",
       configPlaceholder: {
-        plate: "Selecione a placa",
+        plate: "Selecione a placa (caso 0km buscar por cpf)",
         cpf: "Digite o CPF/CNPJ"
       },
       configLabel: {
@@ -410,7 +420,7 @@ export default {
         bolet?.veiculo?.[0]?.placa ||
         null;
 
-      if(!this.plateHashCurrent) this.plateHashCurrent = bolet.cpf;
+      if (!this.plateHashCurrent) this.plateHashCurrent = bolet.cpf;
 
       console.log(bolet);
 
@@ -425,11 +435,11 @@ export default {
 </script>
 
 <style>
-
 @keyframes slide {
   from {
     transform: translateX(0);
   }
+
   to {
     transform: translateX(-50%);
   }
@@ -442,5 +452,4 @@ export default {
 .animate-slide:hover {
   animation-play-state: paused;
 }
-
 </style>
