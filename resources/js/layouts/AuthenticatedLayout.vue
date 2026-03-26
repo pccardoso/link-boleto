@@ -67,7 +67,7 @@
 
 
       <!-- PAGE -->
-      <main class="flex-1 p-8 text-neutral-800">
+      <main class="flex-1 p-2 text-neutral-800">
 
         <slot />
 

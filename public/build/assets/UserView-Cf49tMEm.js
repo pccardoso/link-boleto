@@ -1,1 +1,0 @@
-import{_ as s,c as o,a as t,o as n}from"./app-B3_r2gMM.js";const r={name:"UserView",components:{}},a={class:"p-6"};function c(p,e,i,_,d,l){return n(),o("div",a,[...e[0]||(e[0]=[t("h1",{class:"text-2xl font-bold mb-4"},"Usuários",-1)])])}const m=s(r,[["render",c]]);export{m as default};
