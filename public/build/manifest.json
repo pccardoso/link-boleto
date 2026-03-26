@@ -36,7 +36,7 @@
     "src": "resources/img/RASTREADOR.png"
   },
   "resources/js/app.ts": {
-    "file": "assets/app-BpMQDgWg.js",
+    "file": "assets/app-CpFJLDC0.js",
     "name": "app",
     "src": "resources/js/app.ts",
     "isEntry": true,
@@ -56,7 +56,7 @@
     ]
   },
   "resources/js/pages/Dashboard.vue": {
-    "file": "assets/Dashboard-GwXuKjoE.js",
+    "file": "assets/Dashboard-WfjUi6iV.js",
     "name": "Dashboard",
     "src": "resources/js/pages/Dashboard.vue",
     "isDynamicEntry": true,
@@ -65,7 +65,7 @@
     ]
   },
   "resources/js/pages/Home.vue": {
-    "file": "assets/Home-CfnmhBH-.js",
+    "file": "assets/Home-BGbGIdCf.js",
     "name": "Home",
     "src": "resources/js/pages/Home.vue",
     "isDynamicEntry": true,
@@ -88,7 +88,7 @@
     ]
   },
   "resources/js/pages/Login.vue": {
-    "file": "assets/Login-BbERz2aG.js",
+    "file": "assets/Login-Cvkru57x.js",
     "name": "Login",
     "src": "resources/js/pages/Login.vue",
     "isDynamicEntry": true,
@@ -97,7 +97,7 @@
     ]
   },
   "resources/js/pages/link/LinkView.vue": {
-    "file": "assets/LinkView-BQoDQI0Y.js",
+    "file": "assets/LinkView-CHJ4oMU4.js",
     "name": "LinkView",
     "src": "resources/js/pages/link/LinkView.vue",
     "isDynamicEntry": true,
@@ -106,7 +106,7 @@
     ]
   },
   "resources/js/pages/user/UserView.vue": {
-    "file": "assets/UserView-DWVwofdk.js",
+    "file": "assets/UserView-Crg9Dn7j.js",
     "name": "UserView",
     "src": "resources/js/pages/user/UserView.vue",
     "isDynamicEntry": true,

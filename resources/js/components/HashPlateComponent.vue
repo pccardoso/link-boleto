@@ -17,8 +17,12 @@
 
           <i class="fa-solid fa-search absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 text-sm"></i>
 
-          <input v-model="search" type="text" placeholder="Buscar..."
-            class="border border-gray-200 rounded-lg pl-9 pr-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500">
+          <input
+            v-model="search"
+            type="text"
+            placeholder="Buscar..."
+            class="border border-gray-200 rounded-lg pl-9 pr-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+          >
 
         </div>
 
@@ -40,7 +44,6 @@
       <table class="w-full text-sm">
 
         <thead class="text-gray-500 text-xs uppercase border-b border-b-neutral-400">
-
           <tr>
             <th class="text-left py-3">ID</th>
             <th class="text-left py-3">Placa</th>
@@ -49,13 +52,15 @@
             <th class="text-left py-3">Criado</th>
             <th class="text-right py-3">Ação</th>
           </tr>
-
         </thead>
 
         <tbody>
 
-          <tr v-for="item in paginatedData" :key="item.id"
-            class="border-b border-b-neutral-200 last:border-none hover:bg-gray-50 transition">
+          <tr
+            v-for="item in paginatedData"
+            :key="item.id"
+            class="border-b border-b-neutral-200 last:border-none hover:bg-gray-50 transition"
+          >
 
             <td class="py-4 text-gray-500">
               #{{ item.id }}
@@ -71,13 +76,18 @@
 
             <td class="py-4">
 
-              <span v-if="item.upload && item.upload.length"
-                class="px-2 py-1 text-xs rounded bg-green-100 text-green-700 flex items-center gap-1 w-fit">
+              <span
+                v-if="item.upload && item.upload.length"
+                class="px-2 py-1 text-xs rounded bg-green-100 text-green-700 flex items-center gap-1 w-fit"
+              >
                 <i class="fa-solid fa-paperclip text-xs"></i>
                 {{ item.upload.length }}
               </span>
 
-              <span v-else class="px-2 py-1 text-xs rounded bg-red-100 text-red-600 flex items-center gap-1 w-fit">
+              <span
+                v-else
+                class="px-2 py-1 text-xs rounded bg-red-100 text-red-600 flex items-center gap-1 w-fit"
+              >
                 <i class="fa-solid fa-triangle-exclamation text-xs"></i>
                 Sem upload
               </span>
@@ -90,7 +100,10 @@
 
             <td class="py-4 text-right">
 
-              <button @click="viewItem(item)" class="text-gray-400 hover:text-blue-600 transition">
+              <button
+                @click="viewItem(item)"
+                class="text-gray-400 hover:text-blue-600 transition"
+              >
                 <i class="fa-solid fa-eye"></i>
               </button>
 
@@ -113,16 +126,39 @@
 
       <div class="flex items-center gap-1">
 
-        <button class="px-3 py-1 rounded hover:bg-gray-100" :disabled="page === 1" @click="page--">
+        <button
+          class="px-3 py-1 rounded hover:bg-gray-100"
+          :disabled="page === 1"
+          @click="page--"
+        >
           <i class="fa-solid fa-chevron-left"></i>
         </button>
 
-        <button v-for="p in visiblePages" :key="p" @click="page = p" class="px-3 py-1 rounded"
-          :class="p === page ? 'bg-blue-500 text-white' : 'hover:bg-gray-100'">
-          {{ p }}
-        </button>
+        <template v-for="p in pages" :key="p">
 
-        <button class="px-3 py-1 rounded hover:bg-gray-100" :disabled="page === totalPages" @click="page++">
+          <span
+            v-if="p === '...'"
+            class="px-2"
+          >
+            ...
+          </span>
+
+          <button
+            v-else
+            @click="page = p"
+            class="px-3 py-1 rounded"
+            :class="p === page ? 'bg-blue-500 text-white' : 'hover:bg-gray-100'"
+          >
+            {{ p }}
+          </button>
+
+        </template>
+
+        <button
+          class="px-3 py-1 rounded hover:bg-gray-100"
+          :disabled="page === totalPages"
+          @click="page++"
+        >
           <i class="fa-solid fa-chevron-right"></i>
         </button>
 
@@ -160,9 +196,7 @@ export default {
 
     filteredData() {
 
-      if (!this.search) {
-        return this.data
-      }
+      if (!this.search) return this.data
 
       const term = this.search.toLowerCase()
 
@@ -194,17 +228,44 @@ export default {
 
     },
 
-    visiblePages() {
+    pages() {
 
-  const pages = []
+      const pages = []
+      const total = this.totalPages
+      const current = this.page
 
-  for (let i = 1; i <= this.totalPages; i++) {
-    pages.push(i)
-  }
+      if (total <= 7) {
 
-  return pages
+        for (let i = 1; i <= total; i++) {
+          pages.push(i)
+        }
 
-},
+      } else {
+
+        pages.push(1)
+
+        if (current > 4) {
+          pages.push('...')
+        }
+
+        const start = Math.max(2, current - 1)
+        const end = Math.min(total - 1, current + 1)
+
+        for (let i = start; i <= end; i++) {
+          pages.push(i)
+        }
+
+        if (current < total - 3) {
+          pages.push('...')
+        }
+
+        pages.push(total)
+
+      }
+
+      return pages
+
+    },
 
     startItem() {
       return (this.page - 1) * this.perPage + 1
