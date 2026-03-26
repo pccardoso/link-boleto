@@ -34,8 +34,19 @@
         <!-- LISTA -->
         <div class="w-[35%] border-r border-gray-200 overflow-y-auto">
 
-          <div v-for="item in anexos" :key="item.id"
-            class="flex items-center justify-between px-4 py-3 hover:bg-gray-100 cursor-pointer transition group"
+          <!-- SEARCH -->
+          <div class="p-3 border-b border-gray-200">
+            <input
+              v-model="search"
+              type="text"
+              placeholder="Buscar anexo..."
+              class="w-full px-3 py-2 text-sm border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+            >
+          </div>
+
+          <div v-for="item in filteredAnexos" :key="item.id"
+            class="flex items-center justify-between px-4 py-3 cursor-pointer transition group"
+            :class="selectedItem && selectedItem.id === item.id ? 'bg-blue-50 border-l-4 border-blue-500' : 'hover:bg-gray-100'"
             @click="openPreview(item)">
 
             <div class="flex items-center gap-3">
@@ -134,7 +145,8 @@ export default {
 
   data() {
     return {
-      selectedItem: null
+      selectedItem: null,
+      search: ""
     }
   },
 
@@ -145,6 +157,18 @@ export default {
       if (!this.selectedItem) return null
 
       return import.meta.env.VITE_URL_AWS + '/' + this.selectedItem.path
+
+    },
+
+    filteredAnexos() {
+
+      if (!this.search) return this.anexos
+
+      return this.anexos.filter(item =>
+        item.path.split('/')[1]
+          .toLowerCase()
+          .includes(this.search.toLowerCase())
+      )
 
     }
 
