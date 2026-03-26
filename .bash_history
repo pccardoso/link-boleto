@@ -84,3 +84,21 @@ php artisan optimize:clear
 php artisan optimize
 exitt
 exit
+clear
+php artisan config:clear
+php artisan optimize:clear
+php artisan optimize
+clear
+docker ps
+exit
+clear
+php artisan confi:clear
+php artisan optimize
+php artisan optimize:clear
+EXIT
+exit
+clear
+php artisan config:clear
+php artisan optimize
+php artisan optimize:clear
+exit

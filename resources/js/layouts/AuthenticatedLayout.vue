@@ -1,9 +1,16 @@
+```vue
 <template>
 
   <div class="min-h-screen flex bg-gray-100">
 
-    <!-- SIDEBAR -->
-    <aside class="w-64 bg-(--evogard-blue) text-white flex flex-col">
+    <!-- OVERLAY MOBILE -->
+    <div v-if="menuOpen" @click="menuOpen = false" class="fixed inset-0 bg-black/40 z-30 md:hidden"></div>
+
+    <aside :class="[
+      'fixed md:relative z-40 h-screen w-[85%] max-w-xs md:w-64 bg-(--evogard-blue) text-white flex flex-col transition-transform duration-300',
+      menuOpen ? 'translate-x-0' : '-translate-x-full',
+      'md:translate-x-0'
+    ]">
 
       <!-- LOGO -->
       <div class="h-20 flex items-center justify-center border-b border-white/10">
@@ -13,15 +20,15 @@
       <!-- MENU -->
       <nav class="flex-1 p-4 space-y-2">
 
-        <Link href="/dashboard" :class="navClass('/dashboard')">
+        <Link href="/dashboard" :class="navClass('/dashboard')" @click="menuOpen = false">
         Dashboard
         </Link>
 
-        <Link href="/links" :class="navClass('/links')">
+        <Link href="/links" :class="navClass('/links')" @click="menuOpen = false">
         Links
         </Link>
 
-        <Link href="/users" :class="navClass('/users')">
+        <Link href="/users" :class="navClass('/users')" @click="menuOpen = false">
         Usuários
         </Link>
 
@@ -38,9 +45,20 @@
     <!-- CONTEÚDO -->
     <div class="flex-1 flex flex-col">
 
-      <!-- TOPO -->
-      <header class="h-16 bg-white shadow flex items-center justify-end px-6">
+      <!-- HEADER -->
+      <header class="h-16 bg-white shadow flex items-center justify-between px-6">
 
+        <!-- BOTÃO MOBILE -->
+        <button @click="menuOpen = !menuOpen" class="md:hidden text-gray-600 text-xl">
+          ☰
+        </button>
+
+        <!-- LOGO MOBILE -->
+        <div class="md:hidden font-semibold text-gray-700">
+          Evogard
+        </div>
+
+        <!-- LOGOUT -->
         <button @click="logout" class="text-sm text-gray-600 hover:text-red-500 transition">
           Sair
         </button>
@@ -48,7 +66,7 @@
       </header>
 
 
-      <!-- PÁGINA -->
+      <!-- PAGE -->
       <main class="flex-1 p-8 text-neutral-800">
 
         <slot />
@@ -64,7 +82,7 @@
 <script>
 
 import { Link, router } from '@inertiajs/vue3'
-import axios from 'axios';
+import axios from 'axios'
 
 export default {
 
@@ -74,36 +92,48 @@ export default {
     Link
   },
 
+  data() {
+    return {
+      menuOpen: false
+    }
+  },
+
   computed: {
+
     user() {
       return this.$page.props.auth?.user ?? {}
     }
+
   },
 
   methods: {
 
     navClass(url) {
+
       return [
         "block px-4 py-2 rounded-lg transition",
         this.$page.url.startsWith(url)
           ? "bg-white/20"
           : "hover:bg-white/10"
       ]
+
     },
 
-    logout() {
+    async logout() {
 
-      try{
+      try {
 
-        const response = axios.post('/logout');
+        await axios.post('/logout')
 
-        
-      }catch(e) {
+      } catch (e) {
+
         alert("Erro ao sair, tente novamente.")
         return
+
       }
 
-      router.post('/logout')
+      router.visit('/')
+
     }
 
   }
@@ -111,3 +141,4 @@ export default {
 }
 
 </script>
+```
