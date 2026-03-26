@@ -241,7 +241,7 @@ export default {
       loadingUpdateBolet: false,
       showModalLink: false,
       plateHashCurrent: '',
-      nossoNumeroCurrent: 0,
+      nossoNumeroCurrent: 0
     }
   },
 
@@ -402,6 +402,8 @@ export default {
     },
 
     openModalLink(bolet) {
+
+      console.log(bolet);
 
       this.plateHashCurrent =
         bolet?.veiculos?.[0]?.placa ||

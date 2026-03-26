@@ -4,6 +4,7 @@
 
     use Illuminate\Support\Facades\Http;
     use Carbon\Carbon;
+    use Illuminate\Support\Facades\Log;
 
     class SGAService {
 
@@ -98,14 +99,52 @@
                 'Accept' => 'application/json',
             ])->post('https://api.hinova.com.br/api/sga/v2/alterar/vencimento-boleto', [
                 "nosso_numero" => $codigoBolet,
-                "nova_data_vencimento" => Carbon::now()->format('d/m/Y')
+                "nova_data_vencimento" => Carbon::now()->addDays(1)->format('d/m/Y') //Carbon::now()->format('d/m/Y')
             ]);
 
             if($response->status() === 200){
 
-                return $response->json();
+                //BUSCAR O CÓDIGO DO BOLETO PELO NOSSO_NUMERO
+
+                $responseGetCode = Http::withHeaders([
+                    'Authorization' => 'Bearer ' . env('TOKEN_SGA'),
+                    'Accept' => 'application/json',
+                ])->post('https://api.hinova.com.br/api/sga/v2/processa-pdf/boleto', [
+                    "nosso_numero" => [$codigoBolet]
+                ]);
+
+                if($responseGetCode->status() === 200 && $responseGetCode != null){
+
+                    $dataBolet = $responseGetCode->json();
+
+                    $responseMsgBolet = Http::withHeaders([
+                        'Authorization' => 'Bearer ' . env('TOKEN_SGA'),
+                        'Accept' => 'application/json',
+                    ])->post('https://api.hinova.com.br/api/sga/v2/boleto/manutencao', [
+                        "codigo_boleto" => $dataBolet[0]['codigo'],
+                        "mensagem_desconto" => "Y"
+                    ]);
+
+                    if($responseMsgBolet->status() === 207){
+
+                        return $response->json();
+
+                    }
+
+                }
+
+
+                /*$response = Http::withHeaders([
+                    'Authorization' => 'Bearer ' . env('TOKEN_SGA'),
+                    'Accept' => 'application/json',
+                ])->post('https://api.hinova.com.br/api/sga/v2/boleto/manutencao', [
+                    "codigo_boleto" => $codigoBolet['codigo_boleto'],
+                    "mensagem_desconto" => "Y"
+                ]);*/
 
             }
+
+            return $response->json();
 
         }
 
