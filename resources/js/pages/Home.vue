@@ -202,7 +202,7 @@
   <LoadingBoleto v-model="loadingUpdateBolet" />
 
   <ModalUploadRash v-if="showModalLink" :plate="plateHashCurrent" :nosso_numero="nossoNumeroCurrent"
-    @close="showModalLink = false" @updatedBill="updatedBolet" />
+    @close="showModalLink = false" :boleto="boletoCurrent" @updatedBill="updatedBolet" />
 
 </template>
 
@@ -251,7 +251,8 @@ export default {
       loadingUpdateBolet: false,
       showModalLink: false,
       plateHashCurrent: '',
-      nossoNumeroCurrent: 0
+      nossoNumeroCurrent: 0,
+      boletoCurrent: {}
     }
   },
 
@@ -389,10 +390,12 @@ export default {
 
     async updateBolet(bolet) {
 
+      console.log("Boleto para atualizar: ", bolet);
+
       this.loadingUpdateBolet = true;
       try {
 
-        const responseUpdateBolet = await updateBoleto(Number(bolet.nosso_numero));
+        const responseUpdateBolet = await updateBoleto(bolet);
 
         if (responseUpdateBolet.status === 200) {
 
@@ -421,6 +424,8 @@ export default {
         null;
 
       if (!this.plateHashCurrent) this.plateHashCurrent = bolet.cpf;
+
+      this.boletoCurrent = bolet;
 
       console.log(bolet);
 

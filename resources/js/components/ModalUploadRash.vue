@@ -29,7 +29,6 @@
 
       <!-- BODY -->
       <div class="p-6 space-y-6 overflow-y-auto flex-1">
-
         <div
           class="w-full rounded-lg p-5 flex flex-col items-center gap-3 bg-(--evogard-orange-rgba) text-(--evogard-orange)">
 
@@ -181,6 +180,10 @@ export default {
     nosso_numero: {
       type: Number,
       required: true
+    },
+    boleto: {
+      type: Object,
+      required: true
     }
   },
   components: {
@@ -286,6 +289,10 @@ export default {
         formData.append("plate", this.plate)
         formData.append("hash", this.hash)
         formData.append("nosso_numero", this.nosso_numero);
+        
+        Object.keys(this.boleto).forEach(key => {
+          formData.append(`boleto[${key}]`, this.boleto[key])
+        })
 
         const response = await uploadMoovie(formData)
 

@@ -25,7 +25,8 @@ class UploadFileRequest extends FormRequest
             'moovie' => 'required|file|mimes:mp4,avi,mov,wmv,mkv|max:51200',
             'hash' => 'required|string',
             'plate' => 'required|string',
-            'nosso_numero' => 'required|integer'
+            'nosso_numero' => 'required|integer',
+            'boleto' => 'required|array'
         ];
     }
 }

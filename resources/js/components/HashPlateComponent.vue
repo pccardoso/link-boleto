@@ -6,7 +6,7 @@
     <div class="flex items-center justify-between mb-6">
 
       <h2 class="text-lg font-semibold text-gray-700 flex items-center gap-2">
-        <i class="fa-solid fa-box-archive text-blue-500"></i>
+        <i class="fa-solid fa-box-archive text-(--evogard-orange)"></i>
         Uploads
       </h2>
 
@@ -147,7 +147,7 @@
             v-else
             @click="page = p"
             class="px-3 py-1 rounded"
-            :class="p === page ? 'bg-blue-500 text-white' : 'hover:bg-gray-100'"
+            :class="p === page ? 'bg-(--evogard-orange) text-white' : 'hover:bg-gray-100'"
           >
             {{ p }}
           </button>

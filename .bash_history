@@ -119,3 +119,18 @@ php artisan config:clear
 php artisan optimize
 php artisan optimize:clear
 exit
+clear
+php artisan migrate
+clear
+exit
+clear
+php artisan config:clear
+clear
+php artisan optimize
+php artisan optimize:clear
+exit
+clear
+php artisan optimize
+php artisan optimize:clea
+clear
+exit

@@ -39,11 +39,11 @@ export const getAllBoletOfPlate = async (plate) => {
 
 }
 
-export const updateBoleto = async (codigo_boleto) => {
+export const updateBoleto = async (payload) => {
 
     try{
 
-        const response = await axios.post(`alterar/vencimento-boleto/${codigo_boleto}`);
+        const response = await axios.post(`alterar/vencimento-boleto`, payload);
         return response;
 
     }catch(error){

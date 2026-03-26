@@ -7,6 +7,7 @@ use App\Http\Controllers\SGAController;
 use App\Http\Controllers\HashPlateController;
 use App\Http\Controllers\UploadHashController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\BillController;
 
 # ROTAS PÚBLICAS
 
@@ -19,7 +20,7 @@ Route::get('/upload', [HashPlateController::class, 'index']);
 Route::get('/search-plate/{cpfOrCnpj}', [SGAController::class, 'consultPlatesUser']);
 Route::post('/search-boleto-cpf/{cpfOrCnpj}', [SGAController::class, 'consultBoletUser']);
 Route::post('/search-boleto-plate/{plate}', [SGAController::class, 'consultBoletPlate']);
-Route::post('/alterar/vencimento-boleto/{codigoBoleto}', [SGAController::class, "updateBolet"]);
+Route::post('/alterar/vencimento-boleto', [SGAController::class, "updateBolet"]);
 
 Route::prefix('hash-plate')->group(function(){
 
@@ -59,8 +60,6 @@ Route::middleware(['auth'])->group(function () {
 
     });
 
-    Route::post('/logout', [UserController::class, 'logout'])->name('user.logout');
-
     Route::prefix('users')->group(function () {
     
         Route::get('/', function () {
@@ -79,5 +78,17 @@ Route::middleware(['auth'])->group(function () {
         Route::get('/get-upload/{id_hash}', [UploadHashController::class, 'listUploadHash'])->name('links.detail');
 
     });
+
+    Route::prefix('bills')->group(function () {
+
+        Route::get('/', function () {
+            return Inertia::render('bill/BillView');
+        })->name('bills.index');
+
+        Route::get('/all', [BillController::class, 'index'])->name('bills.all');
+
+    }); 
+
+    Route::post('/logout', [UserController::class, 'logout'])->name('user.logout');
 
 });

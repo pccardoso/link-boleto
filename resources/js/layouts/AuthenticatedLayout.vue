@@ -30,6 +30,11 @@
         <span>Links</span>
         </Link>
 
+        <Link href="/bills" :class="navClass('/bills')" @click="menuOpen = false">
+        <i class="fa-solid fa-file-invoice w-5"></i>
+        <span>Boletos</span>
+        </Link>
+
         <Link href="/users" :class="navClass('/users')" @click="menuOpen = false">
         <i class="fa-solid fa-users w-5"></i>
         <span>Usuários</span>

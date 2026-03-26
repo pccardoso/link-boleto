@@ -88,7 +88,7 @@ class HashPlateController extends Controller
 
         if($returnFileUpload){
 
-            $boletUpdate = $this->sgaService->updateMaturity($request->input('nosso_numero'));
+            $boletUpdate = $this->sgaService->updateMaturity($request->input('boleto'));
 
             return response()->json([
                 "message" => "Vídeo da vistoria foi enviado com sucesso",
