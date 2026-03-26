@@ -44,6 +44,11 @@ class HashPlateController extends Controller
 
     }
 
+    public function hashesPorMes()
+    {
+        return $this->hashService->hashesPorMes();
+    }
+
     /**
      * Show the form for creating a new resource.
      */

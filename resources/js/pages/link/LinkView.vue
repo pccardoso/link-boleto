@@ -2,7 +2,7 @@
 
     <div class="p-6">
 
-      <h1 class="text-2xl font-bold mb-4">Buscar Links</h1>
+      <h1 class="text-2xl font-bold mb-4 text-neutral-600">Links</h1>
 
       <HashPlateComponent :data="hashPlates" @view-item="handleViewItem" />
 

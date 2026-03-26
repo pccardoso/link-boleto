@@ -48,9 +48,15 @@ Route::get('/home', function () {
 
 Route::middleware(['auth'])->group(function () {
 
-    Route::get('/dashboard', function () {
-        return Inertia::render('Dashboard');
-    })->name('dashboard');
+    Route::prefix('dashboard')->group(function () {
+
+        Route::get('/', function () {
+            return Inertia::render('Dashboard');
+        })->name('dashboard');
+
+        Route::get('/hashes-mes', [HashPlateController::class, 'hashesPorMes']);
+
+    });
 
     Route::post('/logout', [UserController::class, 'logout'])->name('user.logout');
 

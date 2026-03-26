@@ -8,8 +8,52 @@
     use Carbon\Carbon;
     use App\Controllers\Requests\UploadFileRequest;
     use Illuminate\Support\Facades\Storage;
+    use Illuminate\Support\Facades\DB;
 
     class HashPlateService{
+
+
+        public function hashesPorMes()
+        {
+            $anoAtual = now()->year;
+
+            $hashes = HashPlate::select(
+                    DB::raw('EXTRACT(MONTH FROM created_at) as mes'),
+                    DB::raw('COUNT(*) as total')
+                )
+                ->whereRaw('EXTRACT(YEAR FROM created_at) = ?', [$anoAtual])
+                ->groupBy('mes')
+                ->pluck('total', 'mes');
+
+            $meses = [
+                1 => 'JAN',
+                2 => 'FEV',
+                3 => 'MAR',
+                4 => 'ABR',
+                5 => 'MAI',
+                6 => 'JUN',
+                7 => 'JUL',
+                8 => 'AGO',
+                9 => 'SET',
+                10 => 'OUT',
+                11 => 'NOV',
+                12 => 'DEZ'
+            ];
+
+            $labels = [];
+            $values = [];
+
+            foreach ($meses as $numero => $nome) {
+                $labels[] = $nome;
+                $values[] = $hashes[$numero] ?? 0;
+            }
+
+            return response()->json([
+                'labels' => $labels,
+                'values' => $values,
+                'year' => $anoAtual
+            ]);
+        }
 
         public function uploadMovie($data){
 
