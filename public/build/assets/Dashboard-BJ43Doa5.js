@@ -1,1 +1,0 @@
-import{_ as a,c as e,a as s,o as t}from"./app-CKO5bZ4D.js";const r={name:"Dashboard"},n={class:"p-6"};function c(d,o,p,l,_,f){return t(),e("div",n,[...o[0]||(o[0]=[s("h1",{class:"text-2xl font-bold mb-4"},"Dashboard",-1),s("p",null,"Em produção...",-1)])])}const i=a(r,[["render",c]]);export{i as default};

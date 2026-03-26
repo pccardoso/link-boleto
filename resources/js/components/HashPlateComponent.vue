@@ -196,22 +196,15 @@ export default {
 
     visiblePages() {
 
-      const pages = []
-      const range = 2
+  const pages = []
 
-      let start = this.page - range
-      let end = this.page + range
+  for (let i = 1; i <= this.totalPages; i++) {
+    pages.push(i)
+  }
 
-      if (start < 1) start = 1
-      if (end > this.totalPages) end = this.totalPages
+  return pages
 
-      for (let i = start; i <= end; i++) {
-        pages.push(i)
-      }
-
-      return pages
-
-    },
+},
 
     startItem() {
       return (this.page - 1) * this.perPage + 1
