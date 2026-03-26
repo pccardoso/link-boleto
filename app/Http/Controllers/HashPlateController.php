@@ -49,6 +49,11 @@ class HashPlateController extends Controller
         return $this->hashService->hashesPorMes();
     }
 
+    public function hashesPorMesComUpload()
+    {
+        return $this->hashService->hashesPorMesComUpload();
+    }
+
     /**
      * Show the form for creating a new resource.
      */

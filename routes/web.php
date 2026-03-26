@@ -55,6 +55,7 @@ Route::middleware(['auth'])->group(function () {
         })->name('dashboard');
 
         Route::get('/hashes-mes', [HashPlateController::class, 'hashesPorMes']);
+        Route::get('/hashes-mes-upload', [HashPlateController::class, 'hashesPorMesComUpload']);
 
     });
 

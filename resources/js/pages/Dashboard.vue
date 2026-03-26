@@ -1,11 +1,34 @@
 <template>
   <div class="p-6">
 
-    <h1 class="text-2xl font-bold mb-4 text-neutral-600">Dashboard</h1>
+    <h1 class="text-2xl font-bold mb-6 text-neutral-600">
+      Dashboard
+    </h1>
 
-    <div class="bg-white p-4 rounded-lg">
+    <div class="grid grid-cols-1 lg:grid-cols-1 gap-6">
 
-      <Line v-if="chartData" :data="chartData" :options="chartOptions" />
+      <!-- GRÁFICO LINHA -->
+      <div class="bg-white p-4 rounded-lg shadow">
+
+        <h2 class="text-sm font-semibold text-gray-500 mb-3">
+          Códigos gerados por mês (ano atual)
+        </h2>
+
+        <Line v-if="chartDataLine" :data="chartDataLine" :options="chartOptionsLine" />
+
+      </div>
+
+
+      <!-- GRÁFICO BARRAS -->
+      <div class="bg-white p-4 rounded-lg shadow">
+
+        <h2 class="text-sm font-semibold text-gray-500 mb-3">
+          Códigos vs Uploads por mês (ano atual)
+        </h2>
+
+        <Bar v-if="chartDataBar" :data="chartDataBar" :options="chartOptionsBar" />
+
+      </div>
 
     </div>
 
@@ -13,8 +36,10 @@
 </template>
 
 <script>
-import axios from 'axios'
-import { Line } from 'vue-chartjs'
+import axios from "axios"
+
+import { Line, Bar } from "vue-chartjs"
+import ChartDataLabels from "chartjs-plugin-datalabels"
 
 import {
   Chart as ChartJS,
@@ -22,19 +47,22 @@ import {
   Tooltip,
   Legend,
   LineElement,
+  BarElement,
   CategoryScale,
   LinearScale,
   PointElement
-} from 'chart.js'
+} from "chart.js"
 
 ChartJS.register(
   Title,
   Tooltip,
   Legend,
   LineElement,
+  BarElement,
   CategoryScale,
   LinearScale,
-  PointElement
+  PointElement,
+  ChartDataLabels
 )
 
 export default {
@@ -42,35 +70,115 @@ export default {
   name: "Dashboard",
 
   components: {
-    Line
+    Line,
+    Bar
   },
 
   data() {
     return {
-      chartData: null,
 
-      chartOptions: {
+      chartDataLine: null,
+      chartDataBar: null,
+
+      chartOptionsLine: {
         responsive: true,
-        maintainAspectRatio: false
+        maintainAspectRatio: false,
+
+        plugins: {
+          datalabels: {
+            color: "#374151",
+            anchor: "end",
+            align: "top",
+            font: {
+              weight: "bold"
+            },
+            formatter: function (value) {
+              return value
+            }
+          },
+
+          legend: {
+            display: false
+          }
+        }
+      },
+
+      chartOptionsBar: {
+        responsive: true,
+        maintainAspectRatio: false,
+
+        plugins: {
+          legend: {
+            position: "top"
+          },
+
+          datalabels: {
+            color: "#111",
+            anchor: "end",
+            align: "top",
+            font: {
+              weight: "bold"
+            }
+          }
+        }
       }
+
     }
   },
 
   async mounted() {
 
-    const response = await axios.get('/dashboard/hashes-mes')
+    await Promise.all([
+      this.loadHashesMes(),
+      this.loadHashesUploadMes()
+    ])
 
-    this.chartData = {
-      labels: response.data.labels,
-      datasets: [
-        {
-          label: 'Hashs geradas',
-          data: response.data.values,
-          borderColor: '#3b82f6',
-          backgroundColor: 'rgba(59,130,246,0.2)',
-          tension: 0.4
-        }
-      ]
+  },
+
+  methods: {
+
+    async loadHashesMes() {
+
+      const response = await axios.get("/dashboard/hashes-mes")
+
+      this.chartDataLine = {
+        labels: response.data.labels,
+
+        datasets: [
+          {
+            label: "Códigos geradas",
+            data: response.data.values,
+            borderColor: "#3b82f6",
+            backgroundColor: "rgba(59,130,246,0.2)",
+            tension: 0.4
+          }
+        ]
+      }
+
+    },
+
+
+    async loadHashesUploadMes() {
+
+      const response = await axios.get("/dashboard/hashes-mes-upload")
+
+      this.chartDataBar = {
+        labels: response.data.labels,
+
+        datasets: [
+          {
+            label: response.data.series[0].name,
+            data: response.data.series[0].data,
+            backgroundColor: "#ED6B1E"
+          },
+          {
+            label: response.data.series[1].name,
+            data: response.data.series[1].data,
+            backgroundColor: "#F4945C"
+          }
+        ]
+      }
+
     }
 
   }

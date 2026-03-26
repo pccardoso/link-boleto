@@ -55,6 +55,72 @@
             ]);
         }
 
+
+        public function hashesPorMesComUpload()
+{
+            $anoAtual = now()->year;
+
+            // HASHES CRIADAS
+            $hashes = HashPlate::select(
+                    DB::raw('EXTRACT(MONTH FROM created_at) as mes'),
+                    DB::raw('COUNT(*) as total')
+                )
+                ->whereYear('created_at', $anoAtual)
+                ->groupBy('mes')
+                ->pluck('total', 'mes');
+
+            // HASHES QUE POSSUEM UPLOAD
+            $hashesComUpload = HashPlate::whereHas('upload')
+                ->select(
+                    DB::raw('EXTRACT(MONTH FROM created_at) as mes'),
+                    DB::raw('COUNT(*) as total')
+                )
+                ->whereYear('created_at', $anoAtual)
+                ->groupBy('mes')
+                ->pluck('total', 'mes');
+
+            $meses = [
+                1 => 'JAN',
+                2 => 'FEV',
+                3 => 'MAR',
+                4 => 'ABR',
+                5 => 'MAI',
+                6 => 'JUN',
+                7 => 'JUL',
+                8 => 'AGO',
+                9 => 'SET',
+                10 => 'OUT',
+                11 => 'NOV',
+                12 => 'DEZ'
+            ];
+
+            $labels = [];
+            $hashValues = [];
+            $uploadValues = [];
+
+            foreach ($meses as $numero => $nome) {
+                $labels[] = $nome;
+
+                $hashValues[] = $hashes[$numero] ?? 0;
+                $uploadValues[] = $hashesComUpload[$numero] ?? 0;
+            }
+
+            return response()->json([
+                'labels' => $labels,
+                'series' => [
+                    [
+                        'name' => 'Hashes Criadas',
+                        'data' => $hashValues
+                    ],
+                    [
+                        'name' => 'Hashes com Upload',
+                        'data' => $uploadValues
+                    ]
+                ],
+                'year' => $anoAtual
+            ]);
+        }
+
         public function uploadMovie($data){
 
             $hashGet = HashPlate::where('plate', $data['plate'])
