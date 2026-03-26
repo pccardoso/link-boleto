@@ -409,6 +409,11 @@ export default {
         bolet?.veiculos?.[0]?.placa ||
         bolet?.veiculo?.[0]?.placa ||
         null;
+
+      if(!this.plateHashCurrent) this.plateHashCurrent = bolet.cpf;
+
+      console.log(bolet);
+
       this.nossoNumeroCurrent = Number(bolet.nosso_numero);
 
       this.showModalLink = true;
