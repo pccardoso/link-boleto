@@ -7,6 +7,17 @@
 
     <div class="grid grid-cols-1 lg:grid-cols-1 gap-6">
 
+      <!-- GRÁFICO BOLETOS -->
+      <div class="bg-white p-4 rounded-lg shadow">
+
+        <h2 class="text-sm font-semibold text-gray-500 mb-3">
+          Boletos gerados por mês (ano atual)
+        </h2>
+
+        <Bar v-if="chartDataBills" :data="chartDataBills" :options="chartOptionsBar" />
+
+      </div>
+
       <!-- GRÁFICO LINHA -->
       <div class="bg-white p-4 rounded-lg shadow">
 
@@ -29,6 +40,9 @@
         <Bar v-if="chartDataBar" :data="chartDataBar" :options="chartOptionsBar" />
 
       </div>
+
+
+      
 
     </div>
 
@@ -79,6 +93,7 @@ export default {
 
       chartDataLine: null,
       chartDataBar: null,
+      chartDataBills: null,
 
       chartOptionsLine: {
         responsive: true,
@@ -130,7 +145,8 @@ export default {
 
     await Promise.all([
       this.loadHashesMes(),
-      this.loadHashesUploadMes()
+      this.loadHashesUploadMes(),
+      this.loadBillsMes()
     ])
 
   },
@@ -175,6 +191,28 @@ export default {
             label: response.data.series[1].name,
             data: response.data.series[1].data,
             backgroundColor: "#F4945C"
+          }
+        ]
+      }
+
+    },
+
+
+    async loadBillsMes() {
+
+      const response = await axios.get("/dashboard/bills-mes")
+
+      const labels = Object.keys(response.data)
+      const values = Object.values(response.data)
+
+      this.chartDataBills = {
+        labels: labels,
+
+        datasets: [
+          {
+            label: "Boletos gerados",
+            data: values,
+            backgroundColor: "#ED6B1E"
           }
         ]
       }

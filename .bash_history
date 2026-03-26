@@ -134,3 +134,9 @@ php artisan optimize
 php artisan optimize:clea
 clear
 exit
+php artisan optimize
+php artisan optimize:clear
+clear
+clear
+clear
+exit

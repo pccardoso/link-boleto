@@ -41,6 +41,11 @@ class BillController extends Controller
 
     }
 
+    public function billsPorMes()
+    {
+        return $this->billService->billsPorMes();
+    }
+
     /**
      * Show the form for creating a new resource.
      */

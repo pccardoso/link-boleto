@@ -1,0 +1,1 @@
+import{_ as o,c as t,e as s,k as n}from"./app-Dn5NSxWQ.js";const r={name:"UserView",components:{}},a={class:"p-6"};function c(p,e,l,d,i,_){return n(),t("div",a,[...e[0]||(e[0]=[s("h1",{class:"text-2xl font-bold mb-4"},"Usuários",-1),s("p",null,"Em produção...",-1)])])}const f=o(r,[["render",c]]);export{f as default};
