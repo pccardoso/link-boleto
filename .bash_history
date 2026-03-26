@@ -102,3 +102,4 @@ php artisan config:clear
 php artisan optimize
 php artisan optimize:clear
 exit
+exit
