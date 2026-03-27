@@ -115,6 +115,7 @@
                     "associado" => data_get($codigoBolet, 'nome_associado', 'Não Identificado'),
                     "linha_digitavel" => data_get($codigoBolet, 'linha_digitavel', 'Não Identificado'),
                     "link_boleto" => data_get($codigoBolet, 'link_boleto', 'Não Identificado'),
+                    "valor_boleto" => floatval(data_get($codigoBolet, 'valor_boleto', 0))
                 ]);
 
                 //BUSCAR O CÓDIGO DO BOLETO PELO NOSSO_NUMERO

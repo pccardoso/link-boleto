@@ -140,3 +140,9 @@ clear
 clear
 clear
 exit
+clear
+php artisan migrate
+exit
+php artisan migrate
+clear
+exit

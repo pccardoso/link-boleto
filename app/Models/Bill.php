@@ -18,6 +18,8 @@ class Bill extends Model
         'linha_digitavel',
         'link_boleto',
         'nova_data_vencimento',
+        'valor_boleto',
+        'status',
         'hash_plate_id'
     ];
 
