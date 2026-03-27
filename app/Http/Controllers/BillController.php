@@ -46,6 +46,11 @@ class BillController extends Controller
         return $this->billService->billsPorMes();
     }
 
+    public function valorPorMes()
+    {
+        return $this->billService->valorPorMes();
+    }
+
     /**
      * Show the form for creating a new resource.
      */

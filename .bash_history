@@ -146,3 +146,8 @@ exit
 php artisan migrate
 clear
 exit
+clear
+php artisan config:clear
+php artisan optimize
+php artisan optimize:clear
+exit

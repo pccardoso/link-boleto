@@ -51,4 +51,39 @@
             return response()->json($meses);
         }
 
+        public function valorPorMes()
+        {
+            $year = Carbon::now()->year;
+
+            $data = DB::table('bill_update')
+                ->selectRaw('EXTRACT(MONTH FROM created_at) as mes, SUM(valor_boleto)::float as total') // cast pra float
+                ->whereYear('created_at', $year)
+                ->groupBy('mes')
+                ->orderBy('mes')
+                ->get();
+
+            $meses = [
+                'JAN' => 0,
+                'FEV' => 0,
+                'MAR' => 0,
+                'ABR' => 0,
+                'MAI' => 0,
+                'JUN' => 0,
+                'JUL' => 0,
+                'AGO' => 0,
+                'SET' => 0,
+                'OUT' => 0,
+                'NOV' => 0,
+                'DEZ' => 0,
+            ];
+
+            foreach ($data as $item) {
+                $index = $item->mes - 1;
+                $keys = array_keys($meses);
+                $meses[$keys[$index]] = (float) $item->total; // cast pra float
+            }
+
+            return response()->json($meses);
+        }
+
     }

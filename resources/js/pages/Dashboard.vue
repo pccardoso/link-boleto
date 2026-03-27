@@ -7,40 +7,37 @@
 
     <div class="grid grid-cols-1 lg:grid-cols-1 gap-6">
 
+      <!-- GRÁFICO BARRAS VALOR BOLETOS -->
+      <div class="bg-white p-4 rounded-lg shadow">
+        <h2 class="text-sm font-semibold text-gray-500 mb-3">
+          Total valores atualizado por mês (ano atual)
+        </h2>
+        <Bar v-if="chartDataValorBills" :data="chartDataValorBills" :options="chartOptionsValorBills" />
+      </div>
+
       <!-- GRÁFICO BOLETOS -->
       <div class="bg-white p-4 rounded-lg shadow">
-
         <h2 class="text-sm font-semibold text-gray-500 mb-3">
           Boletos gerados por mês (ano atual)
         </h2>
-
         <Bar v-if="chartDataBills" :data="chartDataBills" :options="chartOptionsBar" />
-
       </div>
 
       <!-- GRÁFICO LINHA -->
       <div class="bg-white p-4 rounded-lg shadow">
-
         <h2 class="text-sm font-semibold text-gray-500 mb-3">
-          Códigos gerados por mês (ano atual)
+          Código de vistoria gerados por mês (ano atual)
         </h2>
-
         <Line v-if="chartDataLine" :data="chartDataLine" :options="chartOptionsLine" />
-
       </div>
-
 
       <!-- GRÁFICO BARRAS -->
       <div class="bg-white p-4 rounded-lg shadow">
-
         <h2 class="text-sm font-semibold text-gray-500 mb-3">
           Códigos vs Uploads por mês (ano atual)
         </h2>
-
         <Bar v-if="chartDataBar" :data="chartDataBar" :options="chartOptionsBar" />
-
       </div>
-
 
       
 
@@ -51,7 +48,6 @@
 
 <script>
 import axios from "axios"
-
 import { Line, Bar } from "vue-chartjs"
 import ChartDataLabels from "chartjs-plugin-datalabels"
 
@@ -80,7 +76,6 @@ ChartJS.register(
 )
 
 export default {
-
   name: "Dashboard",
 
   components: {
@@ -94,45 +89,61 @@ export default {
       chartDataLine: null,
       chartDataBar: null,
       chartDataBills: null,
+      chartDataValorBills: null, // novo gráfico
 
       chartOptionsLine: {
         responsive: true,
         maintainAspectRatio: false,
-
         plugins: {
           datalabels: {
             color: "#374151",
             anchor: "end",
             align: "top",
-            font: {
-              weight: "bold"
-            },
-            formatter: function (value) {
-              return value
-            }
+            font: { weight: "bold" },
+            formatter: function (value) { return value }
           },
-
-          legend: {
-            display: false
-          }
+          legend: { display: false }
         }
       },
 
       chartOptionsBar: {
         responsive: true,
         maintainAspectRatio: false,
-
         plugins: {
-          legend: {
-            position: "top"
-          },
+          legend: { position: "top" },
+          datalabels: {
+            color: "#111",
+            anchor: "end",
+            align: "top",
+            font: { weight: "bold" }
+          }
+        }
+      },
+
+      chartOptionsValorBills: {
+        responsive: true,
+        maintainAspectRatio: false,
+        plugins: {
+          legend: { position: "top" },
 
           datalabels: {
             color: "#111",
             anchor: "end",
             align: "top",
-            font: {
-              weight: "bold"
+            font: { weight: "bold" },
+            formatter: function (value) {
+              // Arredonda para 2 casas decimais antes de formatar
+              const rounded = Number(value.toFixed(2));
+              return rounded.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
+            }
+          },
+
+          tooltip: {
+            callbacks: {
+              label: function (context) {
+                const value = Number(context.raw.toFixed(2));
+                return value.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
+              }
             }
           }
         }
@@ -142,24 +153,20 @@ export default {
   },
 
   async mounted() {
-
     await Promise.all([
       this.loadHashesMes(),
       this.loadHashesUploadMes(),
-      this.loadBillsMes()
+      this.loadBillsMes(),
+      this.loadValorBillsMes() // carregando novo gráfico
     ])
-
   },
 
   methods: {
 
     async loadHashesMes() {
-
       const response = await axios.get("/dashboard/hashes-mes")
-
       this.chartDataLine = {
         labels: response.data.labels,
-
         datasets: [
           {
             label: "Códigos geradas",
@@ -170,17 +177,12 @@ export default {
           }
         ]
       }
-
     },
 
-
     async loadHashesUploadMes() {
-
       const response = await axios.get("/dashboard/hashes-mes-upload")
-
       this.chartDataBar = {
         labels: response.data.labels,
-
         datasets: [
           {
             label: response.data.series[0].name,
@@ -194,20 +196,14 @@ export default {
           }
         ]
       }
-
     },
 
-
     async loadBillsMes() {
-
       const response = await axios.get("/dashboard/bills-mes")
-
       const labels = Object.keys(response.data)
       const values = Object.values(response.data)
-
       this.chartDataBills = {
         labels: labels,
-
         datasets: [
           {
             label: "Boletos gerados",
@@ -216,11 +212,26 @@ export default {
           }
         ]
       }
+    },
 
+    // novo método para valor de boletos
+    async loadValorBillsMes() {
+      const response = await axios.get("/dashboard/valor-bills-mes")
+      const labels = Object.keys(response.data)
+      const values = Object.values(response.data)
+      this.chartDataValorBills = {
+        labels: labels,
+        datasets: [
+          {
+            label: "Total valores emitidos",
+            data: values,
+            backgroundColor: "#10B981" // verde pra diferenciar
+          }
+        ]
+      }
     }
 
   }
-
 }
 </script>
 

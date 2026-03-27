@@ -58,6 +58,7 @@ Route::middleware(['auth'])->group(function () {
         Route::get('/hashes-mes', [HashPlateController::class, 'hashesPorMes']);
         Route::get('/hashes-mes-upload', [HashPlateController::class, 'hashesPorMesComUpload']);
         Route::get('/bills-mes', [BillController::class, 'billsPorMes']);
+        Route::get('/valor-bills-mes', [BillController::class, 'valorPorMes']);
 
     });
 
