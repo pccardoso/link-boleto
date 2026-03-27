@@ -9,6 +9,7 @@
     use App\Controllers\Requests\UploadFileRequest;
     use Illuminate\Support\Facades\Storage;
     use Illuminate\Support\Facades\DB;
+    use Illuminate\Support\Facades\Log;
 
     class HashPlateService{
 
@@ -57,7 +58,7 @@
 
 
         public function hashesPorMesComUpload()
-{
+        {
             $anoAtual = now()->year;
 
             // HASHES CRIADAS
@@ -123,40 +124,57 @@
 
         public function uploadMovie($data){
 
-            $hashGet = HashPlate::where('plate', $data['plate'])
-                        ->whereDate('created_at', Carbon::today())
-                        ->first();
+            try{
 
-            if(!$hashGet){
+                $hashGet = HashPlate::where('plate', $data['plate'])
+                            ->whereDate('created_at', Carbon::today())
+                            ->first();
 
-                return response()->json([
-                    "message" => "O código solicitado não está mais válido!",
-                    "status" => 422,
-                    "data" => null
-                ], 422);
+                if(!$hashGet){
 
-            }
+                    return response()->json([
+                        "message" => "O código solicitado não está mais válido!",
+                        "status" => 422,
+                        "data" => null
+                    ], 422);
 
-            $date = Carbon::now()->format('d-m-Y H:i');
+                }
 
-            $fileName = '['.$date.'] - '.$data['hash'].'.'.$data['moovie']->getClientOriginalExtension();
+                $date = Carbon::now()->format('d-m-Y H:i');
 
-            $uploadPath = Storage::disk('s3')->putFileAs(
-                $data['plate'],
-                $data['moovie'],
-                $fileName
-            );
+                $fileName = '['.$date.'] - '.$data['hash'].'.'.$data['moovie']->getClientOriginalExtension();
 
-            if($uploadPath){
+                $uploadPath = Storage::disk('s3')->putFileAs(
+                    $data['plate'],
+                    $data['moovie'],
+                    $fileName
+                );
 
-                UploadHash::create([
-                    "path" => $uploadPath,
-                    "hash_plate_id" => $hashGet->id
+                if($uploadPath){
+
+                    UploadHash::create([
+                        "path" => $uploadPath,
+                        "hash_plate_id" => $hashGet->id
+                    ]);
+
+                }
+
+                return $uploadPath;
+
+            }catch(\Exception $e){
+
+                Log::error('Erro ao enviar upload', [
+                    'parametro' => $data,
+                    'mensagem' => $e->getMessage(),
+                    'linha' => $e->getLine(),
+                    'arquivo' => $e->getFile(),
                 ]);
 
-            }
+                return response()->json([
+                    'erro' => 'Não foi possível enviar o upload.'
+                ], 500);
 
-            return $uploadPath;
+            }
 
         }
 

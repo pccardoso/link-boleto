@@ -95,70 +95,87 @@
 
         public function updateMaturity($codigoBolet){
 
-            $response = Http::withHeaders([
-                'Authorization' => 'Bearer ' . env('TOKEN_SGA'),
-                'Accept' => 'application/json',
-            ])->post('https://api.hinova.com.br/api/sga/v2/alterar/vencimento-boleto', [
-                "nosso_numero" => $codigoBolet['nosso_numero'],
-                "nova_data_vencimento" => Carbon::now()->addDays(1)->format('d/m/Y') //Carbon::now()->format('d/m/Y')
-            ]);
+            try{
 
-            if($response->status() === 200){
-
-                //BOLETO ATUALIZADO PORTANTO GERAR BILLET PARA O BOLETO ATUALIZADO
-
-                Bill::create([
-                    "codigo_boleto" => data_get($codigoBolet, 'codigo_boleto', 0),
-                    "nosso_numero" => data_get($codigoBolet, 'nosso_numero', 0),
-                    "nova_data_vencimento" => Carbon::now()->addDays(1)->format('Y-m-d'),
-                    "cpf_cnpj" => data_get($codigoBolet, 'cpf', 'Não Identificado'),
-                    "associado" => data_get($codigoBolet, 'nome_associado', 'Não Identificado'),
-                    "linha_digitavel" => data_get($codigoBolet, 'linha_digitavel', 'Não Identificado'),
-                    "link_boleto" => data_get($codigoBolet, 'link_boleto', 'Não Identificado'),
-                    "valor_boleto" => floatval(data_get($codigoBolet, 'valor_boleto', 0))
-                ]);
-
-                //BUSCAR O CÓDIGO DO BOLETO PELO NOSSO_NUMERO
-
-                $responseGetCode = Http::withHeaders([
+                $response = Http::withHeaders([
                     'Authorization' => 'Bearer ' . env('TOKEN_SGA'),
                     'Accept' => 'application/json',
-                ])->post('https://api.hinova.com.br/api/sga/v2/processa-pdf/boleto', [
-                    "nosso_numero" => [$codigoBolet['nosso_numero']]
+                ])->post('https://api.hinova.com.br/api/sga/v2/alterar/vencimento-boleto', [
+                    "nosso_numero" => $codigoBolet['nosso_numero'],
+                    "nova_data_vencimento" => Carbon::now()->addDays(1)->format('d/m/Y') //Carbon::now()->format('d/m/Y')
                 ]);
 
-                if($responseGetCode->status() === 200 && $responseGetCode != null){
+                if($response->status() === 200){
 
-                    $dataBolet = $responseGetCode->json();
+                    //BOLETO ATUALIZADO PORTANTO GERAR BILLET PARA O BOLETO ATUALIZADO
 
-                    $responseMsgBolet = Http::withHeaders([
-                        'Authorization' => 'Bearer ' . env('TOKEN_SGA'),
-                        'Accept' => 'application/json',
-                    ])->post('https://api.hinova.com.br/api/sga/v2/boleto/manutencao', [
-                        "codigo_boleto" => $dataBolet[0]['codigo'],
-                        "mensagem_desconto" => "Y"
+                    Bill::create([
+                        "codigo_boleto" => data_get($codigoBolet, 'codigo_boleto', 0),
+                        "nosso_numero" => data_get($codigoBolet, 'nosso_numero', 0),
+                        "nova_data_vencimento" => Carbon::now()->addDays(1)->format('Y-m-d'),
+                        "cpf_cnpj" => data_get($codigoBolet, 'cpf', 'Não Identificado'),
+                        "associado" => data_get($codigoBolet, 'nome_associado', 'Não Identificado'),
+                        "linha_digitavel" => data_get($codigoBolet, 'linha_digitavel', 'Não Identificado'),
+                        "link_boleto" => data_get($codigoBolet, 'link_boleto', 'Não Identificado'),
+                        "valor_boleto" => floatval(data_get($codigoBolet, 'valor_boleto', 0))
                     ]);
 
-                    if($responseMsgBolet->status() === 207){
+                    //BUSCAR O CÓDIGO DO BOLETO PELO NOSSO_NUMERO
 
-                        return $response->json();
+                    $responseGetCode = Http::withHeaders([
+                        'Authorization' => 'Bearer ' . env('TOKEN_SGA'),
+                        'Accept' => 'application/json',
+                    ])->post('https://api.hinova.com.br/api/sga/v2/processa-pdf/boleto', [
+                        "nosso_numero" => [$codigoBolet['nosso_numero']]
+                    ]);
+
+                    if($responseGetCode->status() === 200 && $responseGetCode != null){
+
+                        $dataBolet = $responseGetCode->json();
+
+                        $responseMsgBolet = Http::withHeaders([
+                            'Authorization' => 'Bearer ' . env('TOKEN_SGA'),
+                            'Accept' => 'application/json',
+                        ])->post('https://api.hinova.com.br/api/sga/v2/boleto/manutencao', [
+                            "codigo_boleto" => $dataBolet[0]['codigo'],
+                            "mensagem_desconto" => "Y"
+                        ]);
+
+                        if($responseMsgBolet->status() === 207){
+
+                            return $response->json();
+
+                        }
 
                     }
 
+
+                    /*$response = Http::withHeaders([
+                        'Authorization' => 'Bearer ' . env('TOKEN_SGA'),
+                        'Accept' => 'application/json',
+                    ])->post('https://api.hinova.com.br/api/sga/v2/boleto/manutencao', [
+                        "codigo_boleto" => $codigoBolet['codigo_boleto'],
+                        "mensagem_desconto" => "Y"
+                    ]);*/
+
                 }
 
+                return $response->json();
 
-                /*$response = Http::withHeaders([
-                    'Authorization' => 'Bearer ' . env('TOKEN_SGA'),
-                    'Accept' => 'application/json',
-                ])->post('https://api.hinova.com.br/api/sga/v2/boleto/manutencao', [
-                    "codigo_boleto" => $codigoBolet['codigo_boleto'],
-                    "mensagem_desconto" => "Y"
-                ]);*/
+            }catch(\Exception $e){
+
+                Log::error('Erro ao atualizar boleto', [
+                    'parametro' => $codigoBolet,
+                    'mensagem' => $e->getMessage(),
+                    'linha' => $e->getLine(),
+                    'arquivo' => $e->getFile(),
+                ]);
+
+                return response()->json([
+                    'erro' => 'Não foi possível atualizar o boleto.'
+                ], 500);
 
             }
-
-            return $response->json();
 
         }
 
