@@ -171,8 +171,8 @@ export default {
           {
             label: "Códigos geradas",
             data: response.data.values,
-            borderColor: "#3b82f6",
-            backgroundColor: "rgba(59,130,246,0.2)",
+            borderColor: "#ED6B1E", // 🔹 cor da linha
+            backgroundColor: "rgba(237, 107, 30, 0.2)", // cor do preenchimento abaixo da linha
             tension: 0.4
           }
         ]
