@@ -126,6 +126,8 @@
 
             try{
 
+                
+
                 $hashGet = HashPlate::where('plate', $data['plate'])
                             ->whereDate('created_at', Carbon::today())
                             ->first();
@@ -139,6 +141,10 @@
                     ], 422);
 
                 }
+
+                Log::info('Iniciando upload de vídeo', [
+                    'parametro' => $data
+                ]);
 
                 $date = Carbon::now()->format('d-m-Y H:i');
 
@@ -158,6 +164,11 @@
                     ]);
 
                 }
+
+                Log::info('Upload de vídeo realizado com sucesso', [
+                    'parametro' => $data,
+                    'upload_path' => $uploadPath
+                ]);
 
                 return $uploadPath;
 
