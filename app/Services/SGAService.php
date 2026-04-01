@@ -102,7 +102,7 @@
                     'Accept' => 'application/json',
                 ])->post('https://api.hinova.com.br/api/sga/v2/alterar/vencimento-boleto', [
                     "nosso_numero" => $codigoBolet['nosso_numero'],
-                    "nova_data_vencimento" => Carbon::now()->addDays(1)->format('d/m/Y') //Carbon::now()->format('d/m/Y')
+                    "nova_data_vencimento" => Carbon::now()->format('d/m/Y')
                 ]);
 
                 if($response->status() === 200){
@@ -112,7 +112,7 @@
                     Bill::create([
                         "codigo_boleto" => data_get($codigoBolet, 'codigo_boleto', 0),
                         "nosso_numero" => data_get($codigoBolet, 'nosso_numero', 0),
-                        "nova_data_vencimento" => Carbon::now()->addDays(1)->format('Y-m-d'),
+                        "nova_data_vencimento" => Carbon::now()->format('d/m/Y'),
                         "cpf_cnpj" => data_get($codigoBolet, 'cpf', 'Não Identificado'),
                         "associado" => data_get($codigoBolet, 'nome_associado', 'Não Identificado'),
                         "linha_digitavel" => data_get($codigoBolet, 'linha_digitavel', 'Não Identificado'),
@@ -120,47 +120,9 @@
                         "valor_boleto" => floatval(data_get($codigoBolet, 'valor_boleto', 0))
                     ]);
 
-                    //BUSCAR O CÓDIGO DO BOLETO PELO NOSSO_NUMERO
-
-                    $responseGetCode = Http::withHeaders([
-                        'Authorization' => 'Bearer ' . env('TOKEN_SGA'),
-                        'Accept' => 'application/json',
-                    ])->post('https://api.hinova.com.br/api/sga/v2/processa-pdf/boleto', [
-                        "nosso_numero" => [$codigoBolet['nosso_numero']]
-                    ]);
-
-                    if($responseGetCode->status() === 200 && $responseGetCode != null){
-
-                        $dataBolet = $responseGetCode->json();
-
-                        $responseMsgBolet = Http::withHeaders([
-                            'Authorization' => 'Bearer ' . env('TOKEN_SGA'),
-                            'Accept' => 'application/json',
-                        ])->post('https://api.hinova.com.br/api/sga/v2/boleto/manutencao', [
-                            "codigo_boleto" => $dataBolet[0]['codigo'],
-                            "mensagem_desconto" => "Y"
-                        ]);
-
-                        if($responseMsgBolet->status() === 207){
-
-                            return $response->json();
-
-                        }
-
-                    }
-
-
-                    /*$response = Http::withHeaders([
-                        'Authorization' => 'Bearer ' . env('TOKEN_SGA'),
-                        'Accept' => 'application/json',
-                    ])->post('https://api.hinova.com.br/api/sga/v2/boleto/manutencao', [
-                        "codigo_boleto" => $codigoBolet['codigo_boleto'],
-                        "mensagem_desconto" => "Y"
-                    ]);*/
+                    return $response->json();
 
                 }
-
-                return $response->json();
 
             }catch(\Exception $e){
 

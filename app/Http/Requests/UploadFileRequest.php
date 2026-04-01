@@ -22,7 +22,7 @@ class UploadFileRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'moovie' => 'required|file|mimes:mp4,avi,mov,wmv,mkv|max:51200',
+            'moovie' => 'required|file|max:51200',
             'hash' => 'required|string',
             'plate' => 'required|string',
             'nosso_numero' => 'required|integer',
