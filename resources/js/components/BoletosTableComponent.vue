@@ -204,6 +204,10 @@ export default {
             const start = (this.page - 1) * this.perPage
             const end = start + this.perPage
 
+            if (start >= this.filteredData.length) {
+                return []
+            }
+
             return this.filteredData.slice(start, end)
 
         },
