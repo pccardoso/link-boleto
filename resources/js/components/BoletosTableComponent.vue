@@ -112,6 +112,12 @@
 
                     </tr>
 
+                    <tr v-if="paginatedData.length === 0">
+                        <td colspan="8" class="text-center py-8 text-gray-400">
+                            Nenhum boleto encontrado
+                        </td>
+                    </tr>
+
                 </tbody>
 
             </table>
@@ -184,11 +190,11 @@ export default {
             return this.data.filter(item => {
 
                 return (
-                    String(item.id).includes(term) ||
-                    item.associado.toLowerCase().includes(term) ||
-                    item.cpf_cnpj.includes(term) ||
-                    String(item.nosso_numero).includes(term) ||
-                    item.linha_digitavel.includes(term)
+                    String(item.id ?? '').includes(term) ||
+                    String(item.associado ?? '').toLowerCase().includes(term) ||
+                    String(item.cpf_cnpj ?? '').includes(term) ||
+                    String(item.nosso_numero ?? '').includes(term) ||
+                    String(item.linha_digitavel ?? '').includes(term)
                 )
 
             })
