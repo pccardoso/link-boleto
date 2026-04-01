@@ -131,8 +131,11 @@
                     <i class="fa-solid fa-chevron-left"></i>
                 </button>
 
-                <button v-for="p in totalPages" :key="p" @click="page = p" class="px-3 py-1 rounded"
-                    :class="p === page ? 'bg-(--evogard-orange) text-white' : 'hover:bg-gray-100'">
+                <button v-for="p in visiblePages" :key="p" @click="p !== '...' && (page = p)" class="px-3 py-1 rounded"
+                    :class="[
+                        p === page ? 'bg-(--evogard-orange) text-white' : 'hover:bg-gray-100',
+                        p === '...' ? 'cursor-default text-gray-400' : ''
+                    ]">
                     {{ p }}
                 </button>
 
@@ -217,6 +220,35 @@ export default {
                 ? this.filteredData.length
                 : end
 
+        },
+
+        visiblePages() {
+
+            const pages = []
+            const total = this.totalPages
+            const current = this.page
+
+            if (total <= 7) {
+                for (let i = 1; i <= total; i++) pages.push(i)
+                return pages
+            }
+
+            pages.push(1)
+
+            if (current > 4) pages.push("...")
+
+            const start = Math.max(2, current - 1)
+            const end = Math.min(total - 1, current + 1)
+
+            for (let i = start; i <= end; i++) {
+                pages.push(i)
+            }
+
+            if (current < total - 3) pages.push("...")
+
+            pages.push(total)
+
+            return pages
         }
 
     },
@@ -238,7 +270,7 @@ export default {
 
             return new Date(date).toLocaleString('pt-BR')
 
-        }
+        },
 
     }
 

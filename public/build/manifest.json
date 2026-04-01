@@ -36,7 +36,7 @@
     "src": "resources/img/RASTREADOR.png"
   },
   "resources/js/app.ts": {
-    "file": "assets/app-mRXrj8pM.js",
+    "file": "assets/app-D_W5X3Yn.js",
     "name": "app",
     "src": "resources/js/app.ts",
     "isEntry": true,
@@ -57,7 +57,7 @@
     ]
   },
   "resources/js/pages/Dashboard.vue": {
-    "file": "assets/Dashboard-B7jvwRua.js",
+    "file": "assets/Dashboard-B_aVVL8-.js",
     "name": "Dashboard",
     "src": "resources/js/pages/Dashboard.vue",
     "isDynamicEntry": true,
@@ -69,7 +69,7 @@
     ]
   },
   "resources/js/pages/Home.vue": {
-    "file": "assets/Home-B68rC2io.js",
+    "file": "assets/Home-KvFYIYEp.js",
     "name": "Home",
     "src": "resources/js/pages/Home.vue",
     "isDynamicEntry": true,
@@ -92,7 +92,7 @@
     ]
   },
   "resources/js/pages/Login.vue": {
-    "file": "assets/Login-C0EtYtYl.js",
+    "file": "assets/Login-CB-Y8Awb.js",
     "name": "Login",
     "src": "resources/js/pages/Login.vue",
     "isDynamicEntry": true,
@@ -101,7 +101,7 @@
     ]
   },
   "resources/js/pages/bill/BillView.vue": {
-    "file": "assets/BillView-BLQxlmqp.js",
+    "file": "assets/BillView-DUNd1MMi.js",
     "name": "BillView",
     "src": "resources/js/pages/bill/BillView.vue",
     "isDynamicEntry": true,
@@ -110,7 +110,7 @@
     ]
   },
   "resources/js/pages/link/LinkView.vue": {
-    "file": "assets/LinkView-Ca0FojCs.js",
+    "file": "assets/LinkView-BCwY7LZR.js",
     "name": "LinkView",
     "src": "resources/js/pages/link/LinkView.vue",
     "isDynamicEntry": true,
@@ -119,7 +119,7 @@
     ]
   },
   "resources/js/pages/user/UserView.vue": {
-    "file": "assets/UserView-CWufLf7V.js",
+    "file": "assets/UserView-JhxM5U3P.js",
     "name": "UserView",
     "src": "resources/js/pages/user/UserView.vue",
     "isDynamicEntry": true,
