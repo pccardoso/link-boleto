@@ -4,6 +4,7 @@ namespace App\Jobs;
 
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Queue\Queueable;
+use Illuminate\Support\Facades\Log;
 
 class TesteJob implements ShouldQueue
 {
@@ -22,6 +23,6 @@ class TesteJob implements ShouldQueue
      */
     public function handle(): void
     {
-        //
+        Log::info('TesteJob executado com sucesso!');
     }
 }

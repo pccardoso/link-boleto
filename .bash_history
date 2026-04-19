@@ -188,3 +188,21 @@ php artisan db:seed
 exit
 php artisan schedule:list
 exit
+clear
+docker php app:command-teste
+php artisan app:command-teste
+php artisan schedule:list
+php artisan schedule:list
+php artisan schedule:list
+php artisan schedule:list
+php artisan schedule:list
+php artisan schedule:list
+php artisan schedule:list
+php artisan schedule:list
+php artisan schedule:list
+php artisan schedule:list
+php artisan schedule:list
+php artisan schedule:list
+php artisan schedule:list
+php artisan schedule:list
+exit
