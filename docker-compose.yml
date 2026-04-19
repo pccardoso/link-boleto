@@ -15,6 +15,35 @@ services:
     networks:
       - laravel
 
+  queue:
+    build:
+      context: .
+      dockerfile: docker/php/Dockerfile
+    container_name: boleto_queue
+    working_dir: /var/www
+    command: php artisan queue:work --tries=3 --timeout=60
+    volumes:
+      - ./:/var/www
+    depends_on:
+      - pgsql
+      - app
+    networks:
+      - laravel
+
+  scheduler:
+    build:
+      context: .
+      dockerfile: docker/php/Dockerfile
+    container_name: boleto_scheduler
+    working_dir: /var/www
+    command: php artisan schedule:work
+    volumes:
+      - ./:/var/www
+    depends_on:
+      - app
+    networks:
+      - laravel
+
   nginx:
     image: nginx:latest
     container_name: boleto_nginx

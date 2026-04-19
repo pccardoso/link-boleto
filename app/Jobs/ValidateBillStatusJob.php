@@ -46,7 +46,11 @@ class ValidateBillStatusJob implements ShouldQueue
                     'codigo_situacao_boleto' => '1',
                     'need_validate' => false,
                     'data_pagamento' => data_get($response, 'data_pagamento'),
-                    'valor_pagamento' => (float) data_get($response, 'valor_pagamento', 0),
+                    'valor_pagamento' => blank(data_get($response, 'valor_pagamento'))
+                        ? null
+                        : (float) data_get($response, 'valor_pagamento'),
+
+                    'verified_paid_at' => $this->bill->verified_paid_at ?? now(),
                 ]);
 
                 Log::info("Boleto {$this->bill->id} baixado.");
@@ -63,6 +67,8 @@ class ValidateBillStatusJob implements ShouldQueue
         } catch (\Throwable $e) {
 
             Log::error("Erro ao validar boleto {$this->bill->id}: {$e->getMessage()}");
+
+            throw $e;
         }
     }
 }
