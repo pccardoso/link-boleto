@@ -20,7 +20,12 @@ class Bill extends Model
         'nova_data_vencimento',
         'valor_boleto',
         'status',
-        'hash_plate_id'
+        'hash_plate_id',
+        'descricao_situacao_boleto',
+        'codigo_situacao_boleto',
+        'need_validate',
+        'data_pagamento',
+        'valor_pagamento',
     ];
 
 }
