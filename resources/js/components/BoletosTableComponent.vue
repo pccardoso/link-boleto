@@ -48,7 +48,7 @@
                             <th class="text-left py-3">CPF/CNPJ</th>
                             <th class="text-left py-3">Situação</th>
                             <th class="text-left py-3">Pagamento</th>
-                            <th class="text-right py-3">Valor Pago</th>
+                            <th class="text-left py-3">Valor Pago</th>
                             <th class="text-left py-3">Nosso Número</th>
                             <th class="text-left py-3">Linha Digitável</th>
                             <th class="text-left py-3">Vencimento</th>
