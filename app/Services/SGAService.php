@@ -109,16 +109,22 @@
 
                     //BOLETO ATUALIZADO PORTANTO GERAR BILLET PARA O BOLETO ATUALIZADO
 
-                    Bill::create([
-                        "codigo_boleto" => data_get($codigoBolet, 'codigo_boleto', 0),
-                        "nosso_numero" => data_get($codigoBolet, 'nosso_numero', 0),
-                        "nova_data_vencimento" => Carbon::now()->format('d/m/Y'),
-                        "cpf_cnpj" => data_get($codigoBolet, 'cpf', 'Não Identificado'),
-                        "associado" => data_get($codigoBolet, 'nome_associado', 'Não Identificado'),
-                        "linha_digitavel" => data_get($codigoBolet, 'linha_digitavel', 'Não Identificado'),
-                        "link_boleto" => data_get($codigoBolet, 'link_boleto', 'Não Identificado'),
-                        "valor_boleto" => floatval(data_get($codigoBolet, 'valor_boleto', 0))
-                    ]);
+                    $boletoAtualizado = $response->json();
+
+                    Bill::updateOrCreate(
+                        [
+                            "nosso_numero" => data_get($codigoBolet, 'nosso_numero', 0),
+                        ],
+                        [
+                            "codigo_boleto" => data_get($codigoBolet, 'codigo_boleto', 0),
+                            "nova_data_vencimento" => $boletoAtualizado['nova_data_vencimento'],
+                            "cpf_cnpj" => data_get($codigoBolet, 'cpf', 'Não Identificado'),
+                            "associado" => data_get($codigoBolet, 'nome_associado', 'Não Identificado'),
+                            "linha_digitavel" => data_get($codigoBolet, 'linha_digitavel', 'Não Identificado'),
+                            "link_boleto" => data_get($codigoBolet, 'link_boleto', 'Não Identificado'),
+                            "valor_boleto" => floatval(data_get($codigoBolet, 'valor_boleto', 0))
+                        ]
+                    );
 
                     return $response->json();
 
@@ -136,6 +142,21 @@
                 return response()->json([
                     'erro' => 'Não foi possível atualizar o boleto.'
                 ], 500);
+
+            }
+
+        }
+
+        public function getBolet($nosso_numero){
+
+            $response = Http::withHeaders([
+                'Authorization' => 'Bearer ' . env('TOKEN_SGA'),
+                'Accept' => 'application/json',
+            ])->get('https://api.hinova.com.br/api/sga/v2/buscar/boleto/'.$nosso_numero, []);
+
+            if($response->status() === 200){
+
+                return $response->json();
 
             }
 

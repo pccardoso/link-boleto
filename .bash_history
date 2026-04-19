@@ -151,3 +151,32 @@ php artisan config:clear
 php artisan optimize
 php artisan optimize:clear
 exit
+clear
+php artisan optimize:clear
+php artisan optimize:clear
+exit
+clear
+php artisan migrate
+exit
+clear
+php artisan app:sync-bills-status
+clear
+php artisan app:sync-bills-status
+php artisan queue:work
+clear
+exit
+clear
+php artisan migrate
+clear
+php artisan app:prepare-open-bills
+php artisan app:sync-bills-status
+clear
+php artisan app:sync-bills-status
+clear
+php artisan app:sync-bills-status
+clear
+php artisan app:sync-bills-status
+php artisan queue:work
+cear
+clear
+exit
