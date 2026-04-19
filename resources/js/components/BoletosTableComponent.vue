@@ -35,92 +35,117 @@
         </div>
 
         <!-- TABLE -->
-        <div class="overflow-x-auto">
+        <div class="w-full max-w-full overflow-hidden">
 
-            <table class="w-full text-sm">
+            <div class="overflow-x-auto">
 
-                <thead class="text-gray-500 text-xs uppercase border-b border-b-neutral-400">
-                    <tr>
-                        <th class="text-left py-3">ID</th>
-                        <th class="text-left py-3">Associado</th>
-                        <th class="text-left py-3">CPF/CNPJ</th>
-                        <th class="text-left py-3">Nosso Número</th>
-                        <th class="text-left py-3">Linha Digitável</th>
-                        <th class="text-left py-3">Vencimento</th>
-                        <th class="text-left py-3">Criado</th>
-                        <th class="text-right py-3">Ação</th>
-                    </tr>
-                </thead>
+                <table class="min-w-[1600px] text-sm">
 
-                <tbody>
+                    <thead class="text-gray-500 text-xs uppercase border-b border-b-neutral-400">
+                        <tr>
+                            <th class="text-left py-3">ID</th>
+                            <th class="text-left py-3">Associado</th>
+                            <th class="text-left py-3">CPF/CNPJ</th>
+                            <th class="text-left py-3">Situação</th>
+                            <th class="text-left py-3">Pagamento</th>
+                            <th class="text-right py-3">Valor Pago</th>
+                            <th class="text-left py-3">Nosso Número</th>
+                            <th class="text-left py-3">Linha Digitável</th>
+                            <th class="text-left py-3">Vencimento</th>
+                            <th class="text-left py-3">Criado</th>
+                            <th class="text-right py-3">Ação</th>
+                        </tr>
+                    </thead>
 
-                    <tr v-for="item in paginatedData" :key="item.id"
-                        class="border-b border-b-neutral-200 last:border-none hover:bg-gray-50 transition">
+                    <tbody>
 
-                        <td class="py-4 text-gray-500">
-                            #{{ item.id }}
-                        </td>
+                        <tr v-for="item in paginatedData" :key="item.id"
+                            class="border-b border-b-neutral-200 last:border-none hover:bg-gray-50 transition">
 
-                        <td class="py-4 font-semibold text-gray-700">
-                            {{ item.associado }}
-                        </td>
+                            <td class="py-4 text-gray-500">
+                                #{{ item.id }}
+                            </td>
 
-                        <td class="py-4 text-gray-500">
-                            {{ item.cpf_cnpj }}
-                        </td>
+                            <td class="py-4 font-semibold text-gray-700">
+                                {{ item.associado }}
+                            </td>
 
-                        <td class="py-4 text-gray-500">
-                            {{ item.nosso_numero }}
-                        </td>
+                            <td class="py-4 text-gray-500">
+                                {{ item.cpf_cnpj }}
+                            </td>
 
-                        <td class="py-4 text-xs text-gray-500" :title="item.linha_digitavel">
-                            {{ (item.linha_digitavel || '').substring(0, 20) }}{{ item.linha_digitavel ? '...' : '' }}
-                        </td>
+                            <td class="py-4">
+                                <span
+                                    class="px-2 py-1 text-xs rounded"
+                                    :class="item.descricao_situacao_boleto === 'BAIXADO'
+                                        ? 'bg-green-100 text-green-700'
+                                        : 'bg-yellow-100 text-yellow-700'">
+                                    {{ item.descricao_situacao_boleto || '-' }}
+                                </span>
+                            </td>
 
-                        <td class="py-4">
+                            <td class="py-4 text-gray-500">
+                                {{ formatDate(item.data_pagamento) }}
+                            </td>
 
-                            <span v-if="item.nova_data_vencimento"
-                                class="px-2 py-1 text-xs rounded bg-yellow-100 text-yellow-700">
-                                {{ formatDate(item.nova_data_vencimento) }}
-                            </span>
+                            <td class="py-4 text-right text-gray-700 font-medium">
+                                {{ formatMoney(item.valor_pagamento) }}
+                            </td>
 
-                            <span v-else class="px-2 py-1 text-xs rounded bg-gray-100 text-gray-600">
-                                -
-                            </span>
+                            <td class="py-4 text-gray-500">
+                                {{ item.nosso_numero }}
+                            </td>
 
-                        </td>
+                            <td class="py-4 text-xs text-gray-500" :title="item.linha_digitavel">
+                                {{ (item.linha_digitavel || '').substring(0, 20) }}{{ item.linha_digitavel ? '...' : '' }}
+                            </td>
 
-                        <td class="py-4 text-gray-500">
-                            {{ formatDate(item.created_at) }}
-                        </td>
+                            <td class="py-4">
 
-                        <td class="py-4 text-right flex justify-end gap-3">
+                                <span v-if="item.nova_data_vencimento"
+                                    class="px-2 py-1 text-xs rounded bg-yellow-100 text-yellow-700">
+                                    {{ formatDate(item.nova_data_vencimento) }}
+                                </span>
 
-                            <!-- VER BOLETO -->
-                            <a :href="item.link_boleto" target="_blank"
-                                class="text-gray-400 hover:text-green-600 transition">
-                                <i class="fa-solid fa-file-pdf"></i>
-                            </a>
+                                <span v-else class="px-2 py-1 text-xs rounded bg-gray-100 text-gray-600">
+                                    -
+                                </span>
 
-                            <!-- EMIT -->
-                            <button @click="$emit('view-boleto', item)"
-                                class="text-gray-400 hover:text-blue-600 transition">
-                                <i class="fa-solid fa-eye"></i>
-                            </button>
+                            </td>
 
-                        </td>
+                            <td class="py-4 text-gray-500">
+                                {{ formatDate(item.created_at) }}
+                            </td>
 
-                    </tr>
+                            <td class="py-4 text-right flex justify-end gap-3">
 
-                    <tr v-if="paginatedData.length === 0">
-                        <td colspan="8" class="text-center py-8 text-gray-400">
-                            Nenhum boleto encontrado
-                        </td>
-                    </tr>
+                                <!-- VER BOLETO -->
+                                <a :href="item.link_boleto" target="_blank"
+                                    class="text-gray-400 hover:text-green-600 transition">
+                                    <i class="fa-solid fa-file-pdf"></i>
+                                </a>
 
-                </tbody>
+                                <!-- EMIT -->
+                                <button @click="$emit('view-boleto', item)"
+                                    class="text-gray-400 hover:text-blue-600 transition">
+                                    <i class="fa-solid fa-eye"></i>
+                                </button>
 
-            </table>
+                            </td>
+
+                        </tr>
+
+                        <tr v-if="paginatedData.length === 0">
+                            <td colspan="8" class="text-center py-8 text-gray-400">
+                                Nenhum boleto encontrado
+                            </td>
+                        </tr>
+
+                    </tbody>
+
+                </table>
+
+            </div>
 
         </div>
 
@@ -281,6 +306,17 @@ export default {
             return new Date(date).toLocaleString('pt-BR')
 
         },
+
+        formatMoney(value) {
+
+            if (!value) return "-"
+
+            return Number(value).toLocaleString('pt-BR', {
+                style: 'currency',
+                currency: 'BRL'
+            })
+
+        }
 
     }
 

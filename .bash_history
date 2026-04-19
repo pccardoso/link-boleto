@@ -184,3 +184,5 @@ php artisan app:sync-bills-status
 php artisan queue:work
 exit
 exit
+php artisan db:seed
+exit
