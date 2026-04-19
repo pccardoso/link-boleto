@@ -85,7 +85,7 @@
                             </td>
 
                             <td class="py-4 text-gray-500">
-                                {{ formatDate(item.data_pagamento) }}
+                                {{ formatDateOnly(item.data_pagamento) }}
                             </td>
 
                             <td class="py-4 text-gray-700 font-medium">
@@ -104,7 +104,7 @@
 
                                 <span v-if="item.nova_data_vencimento"
                                     class="px-2 py-1 text-xs rounded bg-yellow-100 text-yellow-700">
-                                    {{ formatDate(item.nova_data_vencimento) }}
+                                    {{ item.nova_data_vencimento }}
                                 </span>
 
                                 <span v-else class="px-2 py-1 text-xs rounded bg-gray-100 text-gray-600">
@@ -320,6 +320,15 @@ export default {
                 style: 'currency',
                 currency: 'BRL'
             })
+
+        },
+        formatDateOnly(date) {
+
+            if (!date) return '-'
+
+            const [year, month, day] = date.split('-')
+
+            return `${day}/${month}/${year}`
 
         }
 
