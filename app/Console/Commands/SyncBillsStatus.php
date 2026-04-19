@@ -43,7 +43,7 @@ class SyncBillsStatus extends Command
                         ->delay(now()->addSeconds($delaySeconds));
 
                     $total++;
-                    $delaySeconds += 5;
+                    $delaySeconds += 10;
                 }
             });
 

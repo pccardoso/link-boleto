@@ -180,3 +180,6 @@ php artisan queue:work
 cear
 clear
 exit
+php artisan app:sync-bills-status
+php artisan queue:work
+exit
