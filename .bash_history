@@ -186,3 +186,5 @@ exit
 exit
 php artisan db:seed
 exit
+php artisan schedule:list
+exit
