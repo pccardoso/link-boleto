@@ -206,3 +206,25 @@ php artisan schedule:list
 php artisan schedule:list
 php artisan schedule:list
 exit
+clear
+ls
+clear
+php artisan config:clear
+php artisan config:cache
+clear
+php artisan tinker
+clear
+exit
+php artisan tinker
+clear
+exit
+clear
+php artisan schedule:list
+php artisan schedule:list
+php artisan schedule:list
+clear
+php artisan app:send-emails
+php artisan app:send-emails
+clear
+php artisan app:send-emails
+exit

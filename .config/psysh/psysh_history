@@ -1,0 +1,7 @@
+Mail::raw('Teste Gmail', function ($message) {
+    $message->to('xoxo.sto2024@gmail.com')
+            ->subject('Teste');
+});
+Mail::to('cliente@email.com')->send(new BillMail());
+Mail::to('cliente@email.com')->send(new \App\Mail\BillMail());
+Mail::to('xoxo.sto2024@gmail.com')->send(new \App\Mail\BillMail());

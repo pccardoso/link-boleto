@@ -15,4 +15,5 @@ Schedule::command('boletos:prepare-open')
 Schedule::command('app:sync-bills-status')
     ->dailyAt('01:00');
 
-Schedule::command('app:command-teste');
+Schedule::command('app:send-emails')
+    ->dailyAt('07:00');
