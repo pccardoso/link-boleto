@@ -88,7 +88,7 @@
                                 {{ formatDate(item.data_pagamento) }}
                             </td>
 
-                            <td class="py-4 text-right text-gray-700 font-medium">
+                            <td class="py-4 text-gray-700 font-medium">
                                 {{ formatMoney(item.valor_pagamento) }}
                             </td>
 
