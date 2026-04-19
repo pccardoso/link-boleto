@@ -301,7 +301,12 @@ export default {
 
         formatDate(date) {
 
-            if (!date) return "-"
+            if (!date) return '-'
+
+            // Se já vier no formato BR: 18/04/2026 ou 18/04/2026 21:00:00
+            if (date.includes('/')) {
+                return date
+            }
 
             return new Date(date).toLocaleString('pt-BR')
 
