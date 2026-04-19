@@ -74,7 +74,7 @@
                         </td>
 
                         <td class="py-4 text-xs text-gray-500" :title="item.linha_digitavel">
-                            {{ item.linha_digitavel.substring(0, 20) }}...
+                            {{ (item.linha_digitavel || '').substring(0, 20) }}{{ item.linha_digitavel ? '...' : '' }}
                         </td>
 
                         <td class="py-4">
