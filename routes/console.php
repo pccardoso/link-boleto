@@ -9,8 +9,8 @@ Artisan::command('inspire', function () {
 })->purpose('Display an inspiring quote');
 
 
-Schedule::command('boletos:prepare-open')
-    ->dailyAt('22:00');
+Schedule::command('app:prepare-open-bills')
+    ->dailyAt('23:00');
 
 Schedule::command('app:sync-bills-status')
     ->dailyAt('01:00');
