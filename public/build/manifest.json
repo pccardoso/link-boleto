@@ -1,4 +1,11 @@
 {
+  "_LoadingComponent-Ds9qptQ1.js": {
+    "file": "assets/LoadingComponent-Ds9qptQ1.js",
+    "name": "LoadingComponent",
+    "imports": [
+      "resources/js/app.ts"
+    ]
+  },
   "resources/img/ASSISTENCIA.png": {
     "file": "assets/ASSISTENCIA-Bx_mGodz.png",
     "src": "resources/img/ASSISTENCIA.png"
@@ -36,7 +43,7 @@
     "src": "resources/img/RASTREADOR.png"
   },
   "resources/js/app.ts": {
-    "file": "assets/app-WnYl6lVT.js",
+    "file": "assets/app-C8RT0GPB.js",
     "name": "app",
     "src": "resources/js/app.ts",
     "isEntry": true,
@@ -49,7 +56,7 @@
       "resources/js/pages/user/UserView.vue"
     ],
     "css": [
-      "assets/app-D1N8_ISc.css"
+      "assets/app-CaAMcTUb.css"
     ],
     "assets": [
       "assets/EVOGARD-WHITE-Dry_Yu-p.png",
@@ -57,7 +64,7 @@
     ]
   },
   "resources/js/pages/Dashboard.vue": {
-    "file": "assets/Dashboard-C3yGqmQC.js",
+    "file": "assets/Dashboard-CkfaeFGZ.js",
     "name": "Dashboard",
     "src": "resources/js/pages/Dashboard.vue",
     "isDynamicEntry": true,
@@ -69,7 +76,7 @@
     ]
   },
   "resources/js/pages/Home.vue": {
-    "file": "assets/Home-HehPm9y-.js",
+    "file": "assets/Home-D6ejaiXD.js",
     "name": "Home",
     "src": "resources/js/pages/Home.vue",
     "isDynamicEntry": true,
@@ -92,7 +99,7 @@
     ]
   },
   "resources/js/pages/Login.vue": {
-    "file": "assets/Login-CSOa6Kfp.js",
+    "file": "assets/Login-DZh-kUK4.js",
     "name": "Login",
     "src": "resources/js/pages/Login.vue",
     "isDynamicEntry": true,
@@ -101,25 +108,27 @@
     ]
   },
   "resources/js/pages/bill/BillView.vue": {
-    "file": "assets/BillView-B-SKvRzY.js",
+    "file": "assets/BillView-Cgh3Ksyr.js",
     "name": "BillView",
     "src": "resources/js/pages/bill/BillView.vue",
     "isDynamicEntry": true,
     "imports": [
-      "resources/js/app.ts"
+      "resources/js/app.ts",
+      "_LoadingComponent-Ds9qptQ1.js"
     ]
   },
   "resources/js/pages/link/LinkView.vue": {
-    "file": "assets/LinkView-DfAMHrHx.js",
+    "file": "assets/LinkView-Bp0Ut_05.js",
     "name": "LinkView",
     "src": "resources/js/pages/link/LinkView.vue",
     "isDynamicEntry": true,
     "imports": [
-      "resources/js/app.ts"
+      "resources/js/app.ts",
+      "_LoadingComponent-Ds9qptQ1.js"
     ]
   },
   "resources/js/pages/user/UserView.vue": {
-    "file": "assets/UserView-CO9b1W-H.js",
+    "file": "assets/UserView-VLvUbTIX.js",
     "name": "UserView",
     "src": "resources/js/pages/user/UserView.vue",
     "isDynamicEntry": true,

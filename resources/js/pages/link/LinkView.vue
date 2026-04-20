@@ -4,7 +4,9 @@
 
       <h1 class="text-2xl font-bold mb-4 text-neutral-600">Links</h1>
 
-      <HashPlateComponent :data="hashPlates" @view-item="handleViewItem" />
+      <LoadingComponent v-if="loading" />
+
+      <HashPlateComponent v-else :data="hashPlates" @view-item="handleViewItem" />
 
     </div>
 
@@ -18,13 +20,15 @@
 import axios from 'axios';
 import HashPlateComponent from '@/components/HashPlateComponent.vue';
 import PreviewFileComponent from '@/components/PreviewFIleComponent.vue';
+import LoadingComponent from '@/components/LoadingComponent.vue';
 
 export default {
 
   name: "LinkView",
   components: {
     HashPlateComponent,
-    PreviewFileComponent
+    PreviewFileComponent,
+    LoadingComponent
   },
   data(){
     return {
@@ -32,24 +36,22 @@ export default {
       modal: false,
       selectedItem: null,
       anexosPreview: [],
+      loading: true
     }       
   },
   methods: {
 
     async handleViewItem(item){
       this.selectedItem = item;
-
       const response = await axios.get(`/links/get-upload/${item.id}`);
       this.anexosPreview = response.data.data;
-
       this.modal = true; 
     },
   },
   async mounted() {
-    
     const response = await axios.get('/links/all');
-
     this.hashPlates = response.data.data;
+    this.loading = false;
 
   },
 

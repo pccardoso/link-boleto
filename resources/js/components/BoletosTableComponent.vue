@@ -37,15 +37,16 @@
         <!-- TABLE -->
         <div class="w-full max-w-full overflow-hidden">
 
-            <div class="overflow-x-auto">
+            <div class="overflow-x-auto w-full">
 
-                <table class="min-w-[1600px] text-sm">
+                <table class="w-full text-sm">
 
                     <thead class="text-gray-500 text-xs uppercase border-b border-b-neutral-400">
                         <tr>
                             <th class="text-left py-3">ID</th>
                             <th class="text-left py-3">Associado</th>
                             <th class="text-left py-3">CPF/CNPJ</th>
+                            <th class="text-left py-3">Placa</th>
                             <th class="text-left py-3">Situação</th>
                             <th class="text-left py-3">Pagamento</th>
                             <th class="text-left py-3">Valor Pago</th>
@@ -72,6 +73,10 @@
 
                             <td class="py-4 text-gray-500">
                                 {{ item.cpf_cnpj }}
+                            </td>
+
+                            <td class="py-4 text-gray-500">
+                                {{ item.plate || '-' }}
                             </td>
 
                             <td class="py-4">
@@ -219,7 +224,8 @@ export default {
                     String(item.associado ?? '').toLowerCase().includes(term) ||
                     String(item.cpf_cnpj ?? '').includes(term) ||
                     String(item.nosso_numero ?? '').includes(term) ||
-                    String(item.linha_digitavel ?? '').includes(term)
+                    String(item.linha_digitavel ?? '').includes(term) ||
+                    String(item.plate ?? '').toLowerCase().includes(term)
                 )
 
             })
