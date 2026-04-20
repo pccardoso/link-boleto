@@ -236,3 +236,18 @@ clear
 php artisan migrate
 clear
 exit
+clear
+php artisan app:send-emails
+php artisan app:send-emails
+php artisan app:send-emails
+php artisan app:send-emails
+php artisan app:send-emails
+php artisan app:send-emails
+php artisan app:send-emails
+php artisan app:send-emails
+php artisan app:send-emails
+php artisan app:send-emails
+php artisan app:send-emails
+php artisan app:send-emails
+ext
+exit

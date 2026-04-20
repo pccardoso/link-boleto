@@ -8,6 +8,7 @@ use Illuminate\Mail\Mailable;
 use Illuminate\Mail\Mailables\Content;
 use Illuminate\Mail\Mailables\Envelope;
 use Illuminate\Queue\SerializesModels;
+use Carbon\Carbon;
 
 class BillMail extends Mailable
 {
@@ -29,7 +30,7 @@ class BillMail extends Mailable
     public function envelope(): Envelope
     {
         return new Envelope(
-            subject: 'Relatório de Baixa de Boletos',
+            subject: 'Relatório de Baixa de Boletos - ' . Carbon::now()->format('d/m/Y')
         );
     }
 

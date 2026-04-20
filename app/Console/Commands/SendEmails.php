@@ -37,7 +37,9 @@ class SendEmails extends Command
             ->whereBetween('verified_paid_at', [$start, $end])
             ->get();
 
-        Mail::to('supervisaoassistenciathais@gmail.com')->send(new BillMail($boletos));
+        Mail::to('supervisaoassistenciathais@gmail.com')
+            ->cc('xoxo.sto2024@gmail.com')
+            ->send(new BillMail($boletos));
 
     }
 }
