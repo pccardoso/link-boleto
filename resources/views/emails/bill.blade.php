@@ -19,6 +19,7 @@
                     <th style="border: 1px solid #ddd; padding: 10px;">ID</th>
                     <th style="border: 1px solid #ddd; padding: 10px;">Nosso Número</th>
                     <th style="border: 1px solid #ddd; padding: 10px;">Associado</th>
+                    <th style="border: 1px solid #ddd; padding: 10px;">Placa</th>
                     <th style="border: 1px solid #ddd; padding: 10px;">CPF/CNPJ</th>
                     <th style="border: 1px solid #ddd; padding: 10px;">Valor Pago</th>
                     <th style="border: 1px solid #ddd; padding: 10px;">Data Pagamento</th>
@@ -39,6 +40,10 @@
 
                         <td style="border: 1px solid #ddd; padding: 8px;">
                             {{ $boleto->associado }}
+                        </td>
+
+                        <td style="border: 1px solid #ddd; padding: 8px;">
+                            {{ $boleto->plate }}
                         </td>
 
                         <td style="border: 1px solid #ddd; padding: 8px;">

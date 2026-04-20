@@ -156,14 +156,30 @@
 
         public function getBolet($nosso_numero){
 
-            $response = Http::withHeaders([
-                'Authorization' => 'Bearer ' . env('TOKEN_SGA'),
-                'Accept' => 'application/json',
-            ])->get('https://api.hinova.com.br/api/sga/v2/buscar/boleto/'.$nosso_numero, []);
+            try{
+                $response = Http::withHeaders([
+                    'Authorization' => 'Bearer ' . env('TOKEN_SGA'),
+                    'Accept' => 'application/json',
+                ])->get('https://api.hinova.com.br/api/sga/v2/buscar/boleto/'.$nosso_numero, []);
 
-            if($response->status() === 200){
+                if($response->status() === 200){
 
-                return $response->json();
+                    return $response->json();
+
+                }
+
+            }catch(\Exception $e){
+
+                Log::error('Erro ao buscar boleto', [
+                    'parametro' => $nosso_numero,
+                    'mensagem' => $e->getMessage(),
+                    'linha' => $e->getLine(),
+                    'arquivo' => $e->getFile(),
+                ]);
+
+                return response()->json([
+                    'erro' => 'Não foi possível buscar o boleto.'
+                ], 500);
 
             }
 
