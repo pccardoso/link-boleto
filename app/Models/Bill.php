@@ -26,7 +26,8 @@ class Bill extends Model
         'need_validate',
         'data_pagamento',
         'valor_pagamento',
-        'verified_paid_at'
+        'verified_paid_at',
+        'plate'
     ];
 
 }

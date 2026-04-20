@@ -228,3 +228,11 @@ php artisan app:send-emails
 clear
 php artisan app:send-emails
 exit
+clear
+php artisan config:clear
+clear
+exit
+clear
+php artisan migrate
+clear
+exit

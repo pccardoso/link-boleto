@@ -95,6 +95,12 @@
 
         public function updateMaturity($codigoBolet){
 
+            Log::info('Iniciando processo de atualização de boleto', [
+                'parametro' => $codigoBolet
+            ]);
+
+            $plateVehicle = data_get($codigoBolet, 'veiculos.0.placa', null) ?? data_get($codigoBolet, 'veiculo.0.placa', null);
+
             try{
 
                 $response = Http::withHeaders([
@@ -122,7 +128,8 @@
                             "associado" => data_get($codigoBolet, 'nome_associado', 'Não Identificado'),
                             "linha_digitavel" => data_get($codigoBolet, 'linha_digitavel', 'Não Identificado'),
                             "link_boleto" => data_get($codigoBolet, 'link_boleto', 'Não Identificado'),
-                            "valor_boleto" => floatval(data_get($codigoBolet, 'valor_boleto', 0))
+                            "valor_boleto" => floatval(data_get($codigoBolet, 'valor_boleto', 0)),
+                            "plate" => $plateVehicle
                         ]
                     );
 
