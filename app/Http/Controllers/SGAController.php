@@ -75,7 +75,7 @@ class SGAController extends Controller
 
     public function updateBolet(Request $request){
 
-        $responseUpdate = $this->serviceSGA->updateMaturity($request->toArray());
+        $responseUpdate = $this->serviceSGA->updateMaturity($request->toArray(), $request->input("state"));
 
         return response()->json([
             "message" => "Boletos atualizado",

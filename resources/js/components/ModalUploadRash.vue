@@ -184,6 +184,10 @@ export default {
     boleto: {
       type: Object,
       required: true
+    },
+    state: {
+      type: String,
+      required: false,
     }
   },
   components: {
@@ -289,6 +293,7 @@ export default {
         formData.append("plate", this.plate)
         formData.append("hash", this.hash)
         formData.append("nosso_numero", this.nosso_numero);
+        formData.append("state", this.state);
         
         Object.keys(this.boleto).forEach(key => {
           formData.append(`boleto[${key}]`, this.boleto[key])

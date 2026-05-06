@@ -202,7 +202,7 @@
   <LoadingBoleto v-model="loadingUpdateBolet" />
 
   <ModalUploadRash v-if="showModalLink" :plate="plateHashCurrent" :nosso_numero="nossoNumeroCurrent"
-    @close="showModalLink = false" :boleto="boletoCurrent" @updatedBill="updatedBolet" />
+    @close="showModalLink = false" :boleto="boletoCurrent" @updatedBill="updatedBolet" :state="stateToken"/>
 
 </template>
 
@@ -252,7 +252,8 @@ export default {
       showModalLink: false,
       plateHashCurrent: '',
       nossoNumeroCurrent: 0,
-      boletoCurrent: {}
+      boletoCurrent: {},
+      stateToken: "",
     }
   },
 
@@ -328,7 +329,8 @@ export default {
 
           const responseBoleto = await getAllBoletOfPlate(this.placa);
 
-          this.boletosCurrent = responseBoleto.data.data.filter(bol => bol.situacao_boleto === "ABERTO");
+          this.boletosCurrent = responseBoleto.data.data.data.filter(bol => bol.situacao_boleto === "ABERTO");
+          this.stateToken = responseBoleto?.data?.data?.tokenState || '';
 
           if (!this.boletosCurrent.length) {
             Swal.fire({
@@ -344,11 +346,13 @@ export default {
           const [responsePlate, responseBoleto] = await Promise.all([getAllVehicle(this.placa), getAllBoletOfPeople(this.placa)]);
 
           if (responsePlate.status === 200) {
+
             this.veiculos = responsePlate.data.data;
 
             if (responseBoleto.status === 200) {
 
-              this.boletos = responseBoleto.data.data;
+              this.boletos = responseBoleto.data.data.data;
+              this.stateToken = responseBoleto.data.data.tokenState;
 
             }
 
@@ -390,12 +394,15 @@ export default {
 
     async updateBolet(bolet) {
 
-      console.log("Boleto para atualizar: ", bolet);
+      console.log("Boleto para atualizar: ", {...bolet, state: this.stateToken});
 
       this.loadingUpdateBolet = true;
       try {
 
-        const responseUpdateBolet = await updateBoleto(bolet);
+        const responseUpdateBolet = await updateBoleto({
+          ...bolet,
+          state: this.stateToken
+        });
 
         if (responseUpdateBolet.status === 200) {
 

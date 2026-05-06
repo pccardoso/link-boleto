@@ -26,7 +26,8 @@ class UploadFileRequest extends FormRequest
             'hash' => 'required|string',
             'plate' => 'required|string',
             'nosso_numero' => 'required|integer',
-            'boleto' => 'required|array'
+            'boleto' => 'required|array',
+            'state' => 'required|string'
         ];
     }
 }

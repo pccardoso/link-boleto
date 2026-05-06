@@ -7,104 +7,153 @@
     use Illuminate\Support\Facades\Log;
     use App\Models\Bill;
 
-    class SGAService {
+    class SGAService{
 
-        public function searchPlateMember($cpfCnpjClient){
-            
-            $response = Http::withHeaders([
-                'Authorization' => 'Bearer ' . env('TOKEN_SGA'),
-                'Accept' => 'application/json',
-            ])->get('https://api.hinova.com.br/api/sga/v2/associado/buscar/'.$cpfCnpjClient);
+        public function searchPlateMember($cpfCnpjClient)
+        {
+            $tokens = [
+                "GO" => env('TOKEN_SGA_GO'),
+                "CE" => env('TOKEN_SGA')
+            ];
 
-            if($response->status() === 200 && $response != null){
+            foreach ($tokens as $token) {
 
-                $dataResponse = $response->json();
+                $response = Http::withHeaders([
+                    'Authorization' => 'Bearer ' . $token,
+                    'Accept' => 'application/json',
+                ])->get("https://api.hinova.com.br/api/sga/v2/associado/buscar/{$cpfCnpjClient}");
 
-                $listPlate = array_map(function($temp){
+                // ✅ sucesso
+                if ($response->status() === 200 && $response->json()) {
+
+                    $dataResponse = $response->json();
+
+                    return array_map(function ($temp) {
+                        return [
+                            "codigo_veiculo" => $temp['codigo_veiculo'],
+                            "plate" => $temp['placa'],
+                            "model" => $temp['descricao_modelo'],
+                            "status" => $temp['situacao']
+                        ];
+                    }, $dataResponse['veiculos'] ?? []);
+                }
+
+                // ❌ se NÃO for 406, já retorna erro direto
+                if ($response->status() !== 406) {
+                    return $response->json();
+                }
+
+                // 🔁 se for 406, tenta próximo token
+            }
+
+            // 🚫 se todos falharem com 406
+            return [];
+        }
+
+        public function listBoletOfUser($cpfCnpjClient)
+        {
+            $hoje = \Carbon\Carbon::today();
+
+            $tokens = [
+                "GO" => env('TOKEN_SGA_GO'),
+                "CE" => env('TOKEN_SGA')
+            ];
+
+            foreach ($tokens as $state => $token) {
+
+                $response = Http::withHeaders([
+                    'Authorization' => 'Bearer ' . $token,
+                    'Accept' => 'application/json',
+                ])->post('https://api.hinova.com.br/api/sga/v2/listar/boleto/periodo/', [
+                    'cpf_associado' => $cpfCnpjClient,
+                    "data_vencimento_original_inicial" => $hoje->copy()->subDays(90)->format('d/m/Y'),
+                    "data_vencimento_original_final"   => $hoje->copy()->addDays(90)->format('d/m/Y'),
+                ]);
+
+                // ✅ sucesso
+                if ($response->status() === 200 && $response->json()) {
+
                     return [
-                        "codigo_veiculo" => $temp['codigo_veiculo'],
-                        "plate" => $temp['placa'],
-                        "model" => $temp['descricao_modelo'],
-                        "status" => $temp['situacao']
+                        "tokenState" => $state,
+                        "data" => $response->json()
                     ];
-                }, $dataResponse['veiculos']);
+                    
+                }
 
-                return $listPlate;
+                // ❌ se não for 406, retorna erro direto
+                if ($response->status() !== 406) {
+                    return $response->json();
+                }
 
+                // 🔁 se for 406, tenta próximo token
             }
 
-            if($response->status() === 406){
-
-                return [];
-
-            }
-
-            return $response->json();
-            
+            // 🚫 nenhum token retornou sucesso
+            return [];
         }
 
-        public function listBoletOfUser($cpfCnpjClient) {
+        public function listBoletoOfPlate($plateVehicle)
+        {
+            $hoje = \Carbon\Carbon::today();
 
-            $hoje = Carbon::today();
+            $tokens = [
+                "GO" => env('TOKEN_SGA_GO'),
+                "CE" => env('TOKEN_SGA')
+            ];
 
-            $response = Http::withHeaders([
-                'Authorization' => 'Bearer ' . env('TOKEN_SGA'),
-                'Accept' => 'application/json',
-            ])->post('https://api.hinova.com.br/api/sga/v2/listar/boleto/periodo/', [
-                'cpf_associado' => $cpfCnpjClient,
-                "data_vencimento_original_inicial" => $hoje->copy()->subDays(90)->format('d/m/Y'),
-                "data_vencimento_original_final"   => $hoje->copy()->addDays(90)->format('d/m/Y'),
-            ]);
+            foreach ($tokens as $state => $token) {
 
-            if($response->status() === 200 && $response != null){
+                $response = Http::withHeaders([
+                    'Authorization' => 'Bearer ' . $token,
+                    'Accept' => 'application/json',
+                ])->post('https://api.hinova.com.br/api/sga/v2/listar/boleto-associado-veiculo', [
+                    'placa' => $plateVehicle,
+                    "data_vencimento_original_inicial" => $hoje->copy()->subDays(90)->format('d/m/Y'),
+                    "data_vencimento_original_final"   => $hoje->copy()->addDays(90)->format('d/m/Y'),
+                ]);
+
+                // ✅ sucesso
+                if ($response->status() === 200 && $response->json()) {
+                    return [
+                        "tokenState" => $state,
+                        "data" => $response->json()
+                    ];
+                }
+
+                if ($response->status() === 406) {
+
+                    $body = $response->json();
+
+                    if (isset($body['mensagem']) && str_contains($body['mensagem'], 'Nenhum boleto')) {
+                        return [];
+                    }
+
+                    continue;
+                }
 
                 return $response->json();
-
             }
 
+            return [];
         }
 
-        public function listBoletoOfPlate($plateVehicle) {
-
-            $hoje = Carbon::today();
-
-            $response = Http::withHeaders([
-                'Authorization' => 'Bearer ' . env('TOKEN_SGA'),
-                'Accept' => 'application/json',
-            ])->post('https://api.hinova.com.br/api/sga/v2/listar/boleto-associado-veiculo', [
-                'placa' => $plateVehicle,
-                "data_vencimento_original_inicial" => $hoje->copy()->subDays(90)->format('d/m/Y'),
-                "data_vencimento_original_final"   => $hoje->copy()->addDays(90)->format('d/m/Y'),
-            ]);
-
-            if($response->status() === 200 && $response != null){
-
-                return $response->json();
-
-            }
-
-            if($response->status() === 406){
-
-                return [];
-
-            }
-
-            return $response->json();
-
-        }
-
-        public function updateMaturity($codigoBolet){
+        public function updateMaturity($codigoBolet, $state){
 
             Log::info('Iniciando processo de atualização de boleto', [
-                'parametro' => $codigoBolet
+                'parametro' => $codigoBolet,
+                'state' => $state
             ]);
 
             $plateVehicle = data_get($codigoBolet, 'veiculos.0.placa', null) ?? data_get($codigoBolet, 'veiculo.0.placa', null);
 
             try{
 
+                $tokenState = $state === "CE" ? env('TOKEN_SGA') : env('TOKEN_SGA_GO');
+
+                Log::info("Buscando pelo Token: ".$tokenState);
+
                 $response = Http::withHeaders([
-                    'Authorization' => 'Bearer ' . env('TOKEN_SGA'),
+                    'Authorization' => 'Bearer ' . $tokenState,
                     'Accept' => 'application/json',
                 ])->post('https://api.hinova.com.br/api/sga/v2/alterar/vencimento-boleto', [
                     "nosso_numero" => $codigoBolet['nosso_numero'],

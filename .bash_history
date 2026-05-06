@@ -251,3 +251,17 @@ php artisan app:send-emails
 php artisan app:send-emails
 ext
 exit
+clear
+php artisan 
+clear
+php artisan migrate
+clear
+docker exec -it traefik-traefik-1 sh
+exit
+clear
+docker exec -it 15973d221e09 bash
+clear
+exit
+clear
+php artisan key:generate
+exit
