@@ -71,7 +71,7 @@
             <!-- Player -->
             <div v-if="videoType" class="rounded-xl overflow-hidden shadow-lg border border-gray-200">
               <video controls class="w-full">
-                <source :src="videoSrc" :type="videoSrc.endsWith('.mov') || videoSrc.endsWith('.MOV') ? 'video/quicktime' : 'video/mp4'">
+                <source :src="videoSrc" type="video/mp4">
                 Seu navegador não suporta vídeo.
               </video>
             </div>
@@ -164,7 +164,7 @@
 import { validateHashPlate, uploadMoovie } from "@/api/hash-plate"
 import LoadingBoleto from "./LoadingBoleto.vue";
 import videoCarro from "../../video/EXEMPLE_VISTORIA.mp4";
-import videoMoto from "../../video/EXEMPLE_VISTORIA_MOTO_OFICIAL.MOV";
+import videoMoto from "../../video/EXEMPLE_VISTORIA_MOTO_CORRETA.mp4";
 
 export default {
 

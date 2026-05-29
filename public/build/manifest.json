@@ -1,6 +1,6 @@
 {
-  "_LoadingComponent-BoXkZTIG.js": {
-    "file": "assets/LoadingComponent-BoXkZTIG.js",
+  "_LoadingComponent-BSo6jbZo.js": {
+    "file": "assets/LoadingComponent-BSo6jbZo.js",
     "name": "LoadingComponent",
     "imports": [
       "resources/js/app.ts"
@@ -43,7 +43,7 @@
     "src": "resources/img/RASTREADOR.png"
   },
   "resources/js/app.ts": {
-    "file": "assets/app-DU250fkH.js",
+    "file": "assets/app-DJcKfyKX.js",
     "name": "app",
     "src": "resources/js/app.ts",
     "isEntry": true,
@@ -64,7 +64,7 @@
     ]
   },
   "resources/js/pages/Dashboard.vue": {
-    "file": "assets/Dashboard-V6NZBlV5.js",
+    "file": "assets/Dashboard-DQSb5ODC.js",
     "name": "Dashboard",
     "src": "resources/js/pages/Dashboard.vue",
     "isDynamicEntry": true,
@@ -76,7 +76,7 @@
     ]
   },
   "resources/js/pages/Home.vue": {
-    "file": "assets/Home-BrzJUDgH.js",
+    "file": "assets/Home-BrpWAvsu.js",
     "name": "Home",
     "src": "resources/js/pages/Home.vue",
     "isDynamicEntry": true,
@@ -88,7 +88,7 @@
     ],
     "assets": [
       "assets/EXEMPLE_VISTORIA-BDah85lp.mp4",
-      "assets/EXEMPLE_VISTORIA_MOTO_OFICIAL-0sKny3Bx.MOV",
+      "assets/EXEMPLE_VISTORIA_MOTO_CORRETA-CsjHWAwF.mp4",
       "assets/COBERTURA-WHITE-BVjU16fp.png",
       "assets/MEU VEICULO-BACmV8R-.png",
       "assets/LOGO-EVOGARD-DwQmfZYY.png",
@@ -99,7 +99,7 @@
     ]
   },
   "resources/js/pages/Login.vue": {
-    "file": "assets/Login-CZqQ8gNT.js",
+    "file": "assets/Login-BpF-of4_.js",
     "name": "Login",
     "src": "resources/js/pages/Login.vue",
     "isDynamicEntry": true,
@@ -108,27 +108,27 @@
     ]
   },
   "resources/js/pages/bill/BillView.vue": {
-    "file": "assets/BillView-DduVKV8v.js",
+    "file": "assets/BillView-BRD65mxL.js",
     "name": "BillView",
     "src": "resources/js/pages/bill/BillView.vue",
     "isDynamicEntry": true,
     "imports": [
       "resources/js/app.ts",
-      "_LoadingComponent-BoXkZTIG.js"
+      "_LoadingComponent-BSo6jbZo.js"
     ]
   },
   "resources/js/pages/link/LinkView.vue": {
-    "file": "assets/LinkView--EYHDwJA.js",
+    "file": "assets/LinkView-CNETBNOa.js",
     "name": "LinkView",
     "src": "resources/js/pages/link/LinkView.vue",
     "isDynamicEntry": true,
     "imports": [
       "resources/js/app.ts",
-      "_LoadingComponent-BoXkZTIG.js"
+      "_LoadingComponent-BSo6jbZo.js"
     ]
   },
   "resources/js/pages/user/UserView.vue": {
-    "file": "assets/UserView-B_9d7SRe.js",
+    "file": "assets/UserView-TyH8Nou9.js",
     "name": "UserView",
     "src": "resources/js/pages/user/UserView.vue",
     "isDynamicEntry": true,
@@ -140,8 +140,8 @@
     "file": "assets/EXEMPLE_VISTORIA-BDah85lp.mp4",
     "src": "resources/video/EXEMPLE_VISTORIA.mp4"
   },
-  "resources/video/EXEMPLE_VISTORIA_MOTO_OFICIAL.MOV": {
-    "file": "assets/EXEMPLE_VISTORIA_MOTO_OFICIAL-0sKny3Bx.MOV",
-    "src": "resources/video/EXEMPLE_VISTORIA_MOTO_OFICIAL.MOV"
+  "resources/video/EXEMPLE_VISTORIA_MOTO_CORRETA.mp4": {
+    "file": "assets/EXEMPLE_VISTORIA_MOTO_CORRETA-CsjHWAwF.mp4",
+    "src": "resources/video/EXEMPLE_VISTORIA_MOTO_CORRETA.mp4"
   }
 }
