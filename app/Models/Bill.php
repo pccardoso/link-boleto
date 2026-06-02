@@ -27,7 +27,8 @@ class Bill extends Model
         'data_pagamento',
         'valor_pagamento',
         'verified_paid_at',
-        'plate'
+        'plate',
+        'state'
     ];
 
 }

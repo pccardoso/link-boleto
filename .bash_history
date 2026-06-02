@@ -265,3 +265,19 @@ exit
 clear
 php artisan key:generate
 exit
+php artisan make:migration add_column_state_bill
+cls
+clear
+php artisan migrate
+cls
+clear
+exit
+cls
+clear
+php artisan migrate:rollback
+php artisan migrate
+cls
+clear
+cls
+clear
+exit

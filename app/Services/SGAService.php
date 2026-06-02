@@ -178,7 +178,8 @@
                             "linha_digitavel" => data_get($codigoBolet, 'linha_digitavel', 'Não Identificado'),
                             "link_boleto" => data_get($codigoBolet, 'link_boleto', 'Não Identificado'),
                             "valor_boleto" => floatval(data_get($codigoBolet, 'valor_boleto', 0)),
-                            "plate" => $plateVehicle
+                            "plate" => $plateVehicle,
+                            "state" => $state
                         ]
                     );
 
@@ -203,11 +204,14 @@
 
         }
 
-        public function getBolet($nosso_numero){
+        public function getBolet($nosso_numero, $state){
 
             try{
+
+                $stateToken = $state === "GO" ? env('TOKEN_SGA_GO') : env('TOKEN_SGA');
+
                 $response = Http::withHeaders([
-                    'Authorization' => 'Bearer ' . env('TOKEN_SGA'),
+                    'Authorization' => 'Bearer ' . $stateToken,
                     'Accept' => 'application/json',
                 ])->get('https://api.hinova.com.br/api/sga/v2/buscar/boleto/'.$nosso_numero, []);
 
