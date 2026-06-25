@@ -85,6 +85,7 @@
                         <th style="padding:12px; border:1px solid #e5e7eb;">Vencimento Original</th>
                         <th style="padding:12px; border:1px solid #e5e7eb;">Data Pagamento</th>
                         <th style="padding:12px; border:1px solid #e5e7eb;">Status</th>
+                        <th style="padding:12px; border:1px solid #e5e7eb;">Base Integração</th>
                     </tr>
                 </thead>
 
@@ -123,6 +124,10 @@
 
                             <td style="padding:10px; border:1px solid #e5e7eb;">
                                 {{ $boleto->descricao_situacao_boleto }}
+                            </td>
+
+                            <td style="padding:10px; border:1px solid #e5e7eb;">
+                                {{ $boleto->state }}
                             </td>
                         </tr>
                     @endforeach
