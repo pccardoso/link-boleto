@@ -74,6 +74,7 @@
                         <th style="padding:12px; border:1px solid #e5e7eb;">Placa</th>
                         <th style="padding:12px; border:1px solid #e5e7eb;">CPF/CNPJ</th>
                         <th style="padding:12px; border:1px solid #e5e7eb;">Valor Pago</th>
+                        <th style="padding:12px; border:1px solid #e5e7eb;">Vencimento Original</th>
                         <th style="padding:12px; border:1px solid #e5e7eb;">Data Pagamento</th>
                         <th style="padding:12px; border:1px solid #e5e7eb;">Status</th>
                     </tr>
@@ -102,6 +103,10 @@
 
                             <td style="padding:10px; border:1px solid #e5e7eb;">
                                 R$ {{ number_format($boleto->valor_pagamento ?? 0, 2, ',', '.') }}
+                            </td>
+
+                            <td style="padding:10px; border:1px solid #e5e7eb;">
+                                {{ $boleto->vencimento_original ?? '--' }}
                             </td>
 
                             <td style="padding:10px; border:1px solid #e5e7eb;">

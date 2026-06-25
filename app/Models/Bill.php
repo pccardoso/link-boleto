@@ -28,7 +28,8 @@ class Bill extends Model
         'valor_pagamento',
         'verified_paid_at',
         'plate',
-        'state'
+        'state',
+        'vencimento_original'
     ];
 
 }
