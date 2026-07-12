@@ -61,6 +61,9 @@ services:
       #mapeia o código da aplicação 3 para o container do nginx
       - ../projeto-conta-azul:/var/www/projeto-conta-azul
 
+      #mapeia o certificado de homologação do conta azul para o container do nginx
+      - ../projeto-conta-azul/cert/efi:/etc/nginx/certs:ro
+
       - ./docker/nginx/pro/default.conf:/etc/nginx/conf.d/default.conf
       - /etc/letsencrypt:/etc/letsencrypt:ro
     depends_on:
